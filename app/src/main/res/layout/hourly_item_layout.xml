@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="hourly"
             type="com.example.skywise.data.Hourly" />
@@ -34,12 +35,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@{String.valueOf(hourly.temp)+'°'}"
-                app:layout_constraintBottom_toTopOf="@+id/preception_text_view"
+                app:layout_constraintBottom_toTopOf="@+id/precipitation_text_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/preception_text_view"
+                android:id="@+id/precipitation_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -52,22 +53,24 @@
                 android:id="@+id/hourly_weather_image"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
+                app:imageUrl="@{hourly.weather[0].icon}"
                 app:layout_constraintBottom_toTopOf="@+id/temp_text_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour_text_view"
                 app:layout_constraintVertical_bias="0.416"
-                app:imageUrl="@{hourly.weather[0].icon}"
-                app:srcCompat="@drawable/sub_01d_4x" />
+                app:srcCompat="@drawable/sub_01d_4x"
+                android:contentDescription="@string/weather_icon" />
 
             <ImageView
                 android:id="@+id/rainmeter_image"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/preception_text_view"
-                app:layout_constraintEnd_toStartOf="@+id/preception_text_view"
-                app:layout_constraintTop_toTopOf="@+id/preception_text_view"
-                app:srcCompat="@drawable/water_droplette" />
+                app:layout_constraintBottom_toBottomOf="@+id/precipitation_text_view"
+                app:layout_constraintEnd_toStartOf="@+id/precipitation_text_view"
+                app:layout_constraintTop_toTopOf="@+id/precipitation_text_view"
+                app:srcCompat="@drawable/water_droplet"
+                android:contentDescription="@string/water_droplet" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>
