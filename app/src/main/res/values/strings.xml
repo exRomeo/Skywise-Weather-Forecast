@@ -10,9 +10,10 @@
     <string name="feels_like_temps">Feels Like </string>
     <string name="text_location_sample">El Agamy El Bahareyah</string>
     <string name="current_temps_sample">17°</string>
+    <string name="current_weather_desc_sample">Partly cloudy</string>
     <string name="current_weather_image">Current Weather Image</string>
     <string name="hour_sample">10 pm</string>
-    <string name="preception_sample">100%</string>
+    <string name="precipitation_sample">100%</string>
     <string name="day_name_sample">Friday</string>
     <string name="sample_date">Wed 00/00 </string>
     <string name="high_temps_sample">25°</string>

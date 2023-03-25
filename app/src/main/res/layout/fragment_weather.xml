@@ -22,9 +22,11 @@
             type="com.example.skywise.weatherscreen.DailyAdapter" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout8"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/fragment_weather_xml_constraintlayout8_scene">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
@@ -44,10 +46,10 @@
 
             <ImageView
                 android:id="@+id/current_weather_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:contentDescription="@string/current_weather_image"
-                android:onClick="@{()-> viewModel.update()}"
+
                 android:src="@drawable/sub_01d_4x"
                 app:imageUrl="@{weatherData.current.weather[0].icon}"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -57,55 +59,63 @@
 
             <TextView
                 android:id="@+id/current_temp_text"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
+                android:gravity="center"
                 android:text="@{String.valueOf(Math.round(weatherData.current.temp))+'°'}"
                 android:textSize="60sp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/current_temps_sample" />
 
             <TextView
                 android:id="@+id/geo_location_text"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="4dp"
+                android:gravity="center"
                 android:text="@{weatherData.timezone}"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/feels_like_text" />
+                app:layout_constraintTop_toBottomOf="@+id/feels_like_text"
+                tools:text="@string/text_location_sample" />
 
             <TextView
                 android:id="@+id/feels_like_text"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:gravity="center"
                 android:text="@{@string/feels_like_temps +' '+ String.valueOf(Math.round(weatherData.current.feels_like)) + '°'}"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/current_temp_text" />
+                app:layout_constraintTop_toBottomOf="@+id/current_temp_text"
+                tools:text="@string/feels_like_temps" />
 
             <TextView
                 android:id="@+id/weather_description_text"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@{weatherData.current.weather[0].description}"
                 android:textSize="20sp"
-                android:text = "@{weatherData.current.weather[0].description}"
                 app:layout_constraintBottom_toBottomOf="@+id/current_weather_image"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline5" />
+                app:layout_constraintStart_toStartOf="@+id/guideline5"
+                tools:text="@string/current_weather_desc_sample" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.Guideline
@@ -113,7 +123,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.25" />
+            app:layout_constraintGuide_percent="0.25
+" />
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -133,9 +144,10 @@
                     android:id="@+id/hourly_card_view"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
+                    app:cardBackgroundColor="#00FFFFFF"
+                    app:cardElevation="0dp"
+                    app:cardMaxElevation="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -153,10 +165,11 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/daily_card_view"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
+                    app:cardBackgroundColor="#00FFFFFF"
+                    app:cardElevation="0dp"
+                    app:cardMaxElevation="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/hourly_card_view">
@@ -203,7 +216,7 @@
                             android:id="@+id/sunrise_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="16dp"
                             android:text="@string/sun_rise"
                             app:layout_constraintEnd_toStartOf="@+id/guideline4"
                             app:layout_constraintStart_toStartOf="parent"
@@ -213,11 +226,11 @@
                             android:id="@+id/sunrise_time_text_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="16dp"
                             android:text="@{weatherData.current.getTimeText(weatherData.current.sunrise)}"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/sunrise_tv" />
+                            app:layout_constraintStart_toStartOf="parent" />
 
                         <ImageView
                             android:id="@+id/sunset_image"
@@ -241,7 +254,7 @@
                             android:id="@+id/sunset_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="16dp"
                             android:text="@string/sun_set"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/guideline4"
@@ -251,18 +264,18 @@
                             android:id="@+id/sunset_time_text_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="16dp"
                             android:text="@{weatherData.current.getTimeText(weatherData.current.sunset)}"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/guideline4"
-                            app:layout_constraintTop_toBottomOf="@+id/sunset_tv" />
+                            app:layout_constraintStart_toStartOf="@+id/guideline4" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 
 </layout>

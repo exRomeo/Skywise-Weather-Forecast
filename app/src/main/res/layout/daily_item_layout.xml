@@ -56,7 +56,7 @@
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/preception_sample" />
+                tools:text="@string/precipitation_sample" />
 
             <ImageView
                 android:id="@+id/daily_weather_image"
