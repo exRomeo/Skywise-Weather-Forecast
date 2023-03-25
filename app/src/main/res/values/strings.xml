@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Skywise</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sunset_time_sample">6:14 pm</string>
+    <string name="sun_set">Sun Set</string>
+    <string name="sun_set_image">sun set image</string>
+    <string name="sun_rise_sample">6:54 am</string>
+    <string name="sun_rise">Sun Rise</string>
+    <string name="sun_rise_image">Sun Rise Image</string>
+    <string name="feels_like_temps">Feels Like </string>
+    <string name="text_location_sample">El Agamy El Bahareyah</string>
+    <string name="current_temps_sample">17°</string>
+    <string name="current_weather_image">Current Weather Image</string>
+    <string name="hour_sample">10 pm</string>
+    <string name="preception_sample">100%</string>
+    <string name="day_name_sample">Friday</string>
+    <string name="sample_date">Wed 00/00 </string>
+    <string name="high_temps_sample">25°</string>
+    <string name="low_temps_sample">17°</string>
+    <string name="water_droplet">water droplet</string>
+    <string name="weather_icon">Weather icon</string>
 </resources>
