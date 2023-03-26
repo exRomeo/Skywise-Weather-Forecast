@@ -20,4 +20,7 @@
     <string name="low_temps_sample">17°</string>
     <string name="water_droplet">water droplet</string>
     <string name="weather_icon">Weather icon</string>
+    <string name="uv_index">UV index</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
 </resources>

@@ -13,11 +13,12 @@ import com.example.skywise.data.Repository
 import com.example.skywise.data.remotesource.RetrofitClient
 import com.example.skywise.databinding.FragmentWeatherBinding
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 
 class WeatherFragment : Fragment() {
     private lateinit var binding: FragmentWeatherBinding
-    private val repository by lazy { Repository(RetrofitClient) }
+    private val repository by lazy { Repository(RetrofitClient,this.requireActivity()) }
     private val viewModel by lazy {
         ViewModelProvider(
             this.requireActivity(),
@@ -30,6 +31,7 @@ class WeatherFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_weather, container, false)
+        binding.lifecycleOwner = this.requireActivity()
         binding.viewModel = viewModel
         return binding.root
     }

@@ -44,12 +44,18 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.5" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.16" />
+
             <ImageView
                 android:id="@+id/current_weather_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:contentDescription="@string/current_weather_image"
-
                 android:src="@drawable/sub_01d_4x"
                 app:imageUrl="@{weatherData.current.weather[0].icon}"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -80,7 +86,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="center"
-                android:text="@{weatherData.timezone}"
+                android:text="@{viewModel.weatherData.timezone}"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -110,12 +116,85 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
-                android:text="@{weatherData.current.weather[0].description}"
+                android:text="@{viewModel.weatherData.current.weather[0].description}"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/current_weather_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
                 tools:text="@string/current_weather_desc_sample" />
+
+            <TextView
+                android:id="@+id/current_temps_time_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->viewModel.update()}"
+                android:text="@{weatherData.current.getTimeText(weatherData.current.dt)}"
+                app:layout_constraintBottom_toBottomOf="@+id/current_temp_text"
+                app:layout_constraintEnd_toEndOf="@+id/current_temp_text" />
+
+            <TextView
+                android:id="@+id/current_uvindex_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/uv_index"
+                app:layout_constraintEnd_toStartOf="@+id/guideline11"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/geo_location_text" />
+
+            <TextView
+                android:id="@+id/current_humidity_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/humidity"
+                app:layout_constraintBottom_toBottomOf="@+id/current_uvindex_label"
+                app:layout_constraintEnd_toStartOf="@+id/guideline12"
+                app:layout_constraintStart_toStartOf="@+id/guideline11"
+                app:layout_constraintTop_toTopOf="@+id/current_uvindex_label" />
+
+            <TextView
+                android:id="@+id/current_wind_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wind"
+                app:layout_constraintBottom_toBottomOf="@+id/current_humidity_label"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/guideline12"
+                app:layout_constraintTop_toTopOf="@+id/current_humidity_label" />
+
+            <TextView
+                android:id="@+id/current_uvindex_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(weatherData.current.uvi)}"
+                app:layout_constraintEnd_toEndOf="@+id/current_uvindex_label"
+                app:layout_constraintStart_toStartOf="@+id/current_uvindex_label"
+                app:layout_constraintTop_toBottomOf="@+id/current_uvindex_label" />
+
+            <TextView
+                android:id="@+id/current_humidity_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(weatherData.current.humidity)}"
+                app:layout_constraintEnd_toEndOf="@+id/current_humidity_label"
+                app:layout_constraintStart_toStartOf="@+id/current_humidity_label"
+                app:layout_constraintTop_toBottomOf="@+id/current_humidity_label" />
+
+            <TextView
+                android:id="@+id/current_wind_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(weatherData.current.wind_speed)}"
+                app:layout_constraintEnd_toEndOf="@+id/current_wind_label"
+                app:layout_constraintStart_toStartOf="@+id/current_wind_label"
+                app:layout_constraintTop_toBottomOf="@+id/current_wind_label" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.32" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.Guideline
@@ -123,8 +202,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.25
-" />
+            app:layout_constraintGuide_begin="190dp" />
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -204,7 +282,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/sun_rise_image"
-                            android:src="@drawable/sub_01d_4x"
+                            app:imageUrl="@{`01d`}"
+                            tools:src="@drawable/sub_01d_4x"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/guideline4"
                             app:layout_constraintHorizontal_bias="0.0"
@@ -237,7 +316,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/sun_set_image"
-                            android:src="@drawable/sub_01d_4x"
+                            app:imageUrl="@{`01n`}"
+                            tools:src="@drawable/sub_01d_4x"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/guideline4"
