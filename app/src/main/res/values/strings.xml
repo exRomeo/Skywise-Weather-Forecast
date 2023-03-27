@@ -8,7 +8,7 @@
     <string name="sun_rise">Sun Rise</string>
     <string name="sun_rise_image">Sun Rise Image</string>
     <string name="feels_like_temps">Feels Like </string>
-    <string name="text_location_sample">El Agamy El Bahareyah</string>
+    <string name="text_location_sample">Alexandria,EG</string>
     <string name="current_temps_sample">17°</string>
     <string name="current_weather_desc_sample">Partly cloudy</string>
     <string name="current_weather_image">Current Weather Image</string>
@@ -24,4 +24,7 @@
     <string name="humidity">Humidity</string>
     <string name="wind">Wind</string>
     <string name="sun_set_sample">6:16 PM</string>
+    <string name="weather">Weather</string>
+    <string name="favorites">Favorites</string>
+    <string name="settings">Settings</string>
 </resources>

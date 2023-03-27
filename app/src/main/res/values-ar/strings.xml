@@ -9,7 +9,7 @@
     <string name="sun_rise">شروق الشمس</string>
     <string name="sun_rise_image">صورة شروق الشمس</string>
     <string name="feels_like_temps">الشعور بها</string>
-    <string name="text_location_sample">العجمي البحرية</string>
+    <string name="text_location_sample">الإسكندرية مصر</string>
     <string name="current_temps_sample">17°</string>
     <string name="current_weather_desc_sample">غيوم متفرقة</string>
     <string name="current_weather_image">صورة الطقس الحالي</string>
@@ -24,4 +24,8 @@
     <string name="uv_index">الاشعة فوق البنفسجية</string>
     <string name="humidity">الرطوبة</string>
     <string name="wind">الرياح</string>
+    <string name="weather">الطقس</string>
+    <string name="favorites">المفضلات</string>
+    <string name="settings">الإعدادات</string>
+    <string name="sun_set_sample">6:16م</string>
 </resources>

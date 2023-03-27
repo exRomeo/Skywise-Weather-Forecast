@@ -1,54 +1,65 @@
 package com.example.skywise
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
-import com.example.skywise.utils.LocationUtils
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.skywise.databinding.ActivityMainBinding
-import com.example.skywise.weatherscreen.WeatherFragment
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import com.example.skywise.utils.LocationUtils
+import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.flow.collectLatest
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
-    lateinit var weatherFragment: WeatherFragment
-
-
-    @SuppressLint("MissingPermission")
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        supportActionBar?.hide()
 
         lifecycleScope.launchWhenStarted {
-            LocationUtils.getCurrentLocation(this@MainActivity,lifecycleScope).collectLatest {
-                LocationUtils.saveLocationToSharedPrefs(this@MainActivity,it)
-                println(
-                    "SharedFlow sends his emits ${it.longitude} ${it.latitude}"
-                )
+            LocationUtils.getCurrentLocation(this@MainActivity, lifecycleScope).collectLatest {
+                LocationUtils.saveLocationToSharedPrefs(this@MainActivity, it)
                 LocationUtils.readSavedLocation(this@MainActivity)
             }
         }
         binding.lifecycleOwner = this
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        if (savedInstanceState == null) {
-            weatherFragment = WeatherFragment()
-            fragmentTransaction.add(R.id.fragmentContainerView, weatherFragment, "weather fragment")
-        }
-        fragmentTransaction.commit()
-        Log.i("TAG", "onCreate: " + Locale.getDefault().language)
+
+        drawerLayout = binding.drawerLayout
+        navView = binding.sideDrawer
+        navController = Navigation.findNavController(this, R.id.nav_host_content_main)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.weatherFragment
+            ), drawerLayout
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+        binding.openDrawerButton.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.nav_menu, menu)
+        return true
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
 }
