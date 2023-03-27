@@ -17,7 +17,7 @@ data class WeatherData(
     val daily: ArrayList<Daily>? = null,
     val alerts: ArrayList<Alert>? = null
 ) {
-    fun getCurrentLocation():String{
+    fun getCurrentLocation(): String {
         return timezone ?: "N/A"
     }
 }
@@ -41,17 +41,18 @@ data class Current(
     val weather: ArrayList<Weather> = arrayListOf(Weather())
 ) {
 
-    fun getUviText():String{
+    fun getUviText(): String {
         return uvi.toString()
     }
 
-    fun getHumidityText():String{
+    fun getHumidityText(): String {
         return humidity.toString()
     }
 
-    fun getWindSpeedText():String{
+    fun getWindSpeedText(): String {
         return wind_speed.toString()
     }
+
     fun getFeelsLikeText(): String {
         return feels_like.roundToInt().toString() + '°'
     }
@@ -109,6 +110,15 @@ data class Hourly(
     val pop: Double = 0.0,
     val rain: Rain? = null
 ) {
+
+    fun getPopText(): String {
+        return (pop * 100).roundToInt().toString() + '%'
+    }
+
+    fun getTempText(): String {
+        return "$temp°"
+    }
+
     fun getTimeText(): String {
         val dtf = DateTimeFormatter.ofPattern("ha").withLocale(Locale(Locale.getDefault().language))
         return Instant.ofEpochSecond(this.dt).atZone(ZoneId.systemDefault()).format(dtf)
@@ -137,6 +147,11 @@ data class Daily(
     val rain: Double = 0.0,
     val uvi: Double = 0.0
 ) {
+
+    fun getPopText(): String {
+        return (pop * 100).roundToInt().toString() + '%'
+    }
+
     fun getDayText(): String {
         val dtf = DateTimeFormatter.ofPattern("EEE dd/MM")
             .withLocale(Locale(Locale.getDefault().language))
@@ -153,7 +168,13 @@ data class Temp(
     val eve: Double = 0.0,
     val morn: Double = 0.0
 ) {
+    fun getMaxText(): String {
+        return max.roundToInt().toString() + '°'
+    }
 
+    fun getMinText(): String {
+        return min.roundToInt().toString() + '°'
+    }
 }
 
 data class Rain(

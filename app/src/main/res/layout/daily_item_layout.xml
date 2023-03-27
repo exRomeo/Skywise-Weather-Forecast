@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="@{String.valueOf(Math.round(daily.pop*100)) + '%'}"
+                android:text="@{daily.getPopText()}"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline6"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -62,24 +62,23 @@
                 android:id="@+id/daily_weather_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:contentDescription="@string/weather_icon"
                 app:icon="@{daily.weather[0].icon}"
-                app:size="@{`@2x`}"
                 app:layout_constraintBottom_toBottomOf="@+id/high_temps_text_view"
-                app:layout_constraintEnd_toStartOf="@+id/guideline7"
-                app:layout_constraintStart_toStartOf="@+id/guideline6"
+                app:layout_constraintEnd_toStartOf="@+id/high_temps_text_view"
+                app:layout_constraintStart_toStartOf="@+id/guideline7"
                 app:layout_constraintTop_toTopOf="@+id/high_temps_text_view"
-                app:srcCompat="@drawable/sub_01d_4x"
-                android:contentDescription="@string/weather_icon" />
+                app:size="@{`@2x`}"
+                app:srcCompat="@drawable/sub_01d_4x" />
 
             <TextView
                 android:id="@+id/high_temps_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:text="@{String.valueOf(Math.round(daily.temp.max))+'°'}"
+                android:text="@{daily.temp.getMaxText()}"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/low_temps_text_view"
+                app:layout_constraintEnd_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/high_temps_sample" />
 
@@ -89,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="@{String.valueOf(Math.round(daily.temp.min))+'°'}"
+                android:text="@{daily.temp.getMinText()}"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -121,7 +120,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="264dp" />
+                app:layout_constraintGuide_end="98dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="48dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>
