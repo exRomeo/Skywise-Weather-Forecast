@@ -4,6 +4,7 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.math.roundToInt
 
 data class WeatherData(
     val lat: Double = 0.0,
@@ -16,7 +17,9 @@ data class WeatherData(
     val daily: ArrayList<Daily>? = null,
     val alerts: ArrayList<Alert>? = null
 ) {
-
+    fun getCurrentLocation():String{
+        return timezone ?: "N/A"
+    }
 }
 
 
@@ -37,8 +40,41 @@ data class Current(
     val wind_gust: Double = 0.0,
     val weather: ArrayList<Weather> = arrayListOf(Weather())
 ) {
-    fun getTimeText(sunTime: Long): String {
-        val dtf = DateTimeFormatter.ofPattern("h:mm a").withLocale(Locale(Locale.getDefault().language))
+
+    fun getUviText():String{
+        return uvi.toString()
+    }
+
+    fun getHumidityText():String{
+        return humidity.toString()
+    }
+
+    fun getWindSpeedText():String{
+        return wind_speed.toString()
+    }
+    fun getFeelsLikeText(): String {
+        return feels_like.roundToInt().toString() + '°'
+    }
+
+    fun getTempText(): String {
+        return temp.roundToInt().toString() + '°'
+    }
+
+    fun getSunriseText(): String {
+        return getTimeText(sunrise)
+    }
+
+    fun getSunsetText(): String {
+        return getTimeText(sunset)
+    }
+
+    fun getCurrentTimeText(): String {
+        return getTimeText(dt)
+    }
+
+    private fun getTimeText(sunTime: Long): String {
+        val dtf =
+            DateTimeFormatter.ofPattern("h:mm a").withLocale(Locale(Locale.getDefault().language))
         return Instant.ofEpochSecond(sunTime).atZone(ZoneId.systemDefault()).format(dtf)
     }
 }
@@ -102,7 +138,8 @@ data class Daily(
     val uvi: Double = 0.0
 ) {
     fun getDayText(): String {
-        val dtf = DateTimeFormatter.ofPattern("EEE dd/MM").withLocale(Locale(Locale.getDefault().language))
+        val dtf = DateTimeFormatter.ofPattern("EEE dd/MM")
+            .withLocale(Locale(Locale.getDefault().language))
         return Instant.ofEpochSecond(this.dt).atZone(ZoneId.systemDefault()).format(dtf)
     }
 

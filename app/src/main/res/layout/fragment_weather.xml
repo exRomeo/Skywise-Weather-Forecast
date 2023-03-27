@@ -10,10 +10,6 @@
             type="com.example.skywise.weatherscreen.WeatherViewModel" />
 
         <variable
-            name="weatherData"
-            type="com.example.skywise.data.WeatherData" />
-
-        <variable
             name="hourlyAdapter"
             type="com.example.skywise.weatherscreen.HourlyAdapter" />
 
@@ -57,12 +53,12 @@
                 android:layout_height="0dp"
                 android:contentDescription="@string/current_weather_image"
                 android:src="@drawable/sub_01d_4x"
-                app:icon="@{weatherData.current.weather[0].icon}"
-                app:size="@{`@4x`}"
+                app:icon="@{viewModel.weatherData.current.weather[0].icon}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:size="@{`@4x`}" />
 
             <TextView
                 android:id="@+id/current_temp_text"
@@ -72,7 +68,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="center"
-                android:text="@{String.valueOf(Math.round(weatherData.current.temp))+'°'}"
+                android:text="@{viewModel.weatherData.current.getTempText()}"
                 android:textSize="60sp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +83,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="center"
-                android:text="@{viewModel.weatherData.timezone}"
+                android:text="@{viewModel.weatherData.getCurrentLocation()}"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +98,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="center"
-                android:text="@{@string/feels_like_temps +' '+ String.valueOf(Math.round(weatherData.current.feels_like)) + '°'}"
+                android:text="@{@string/feels_like_temps + ' ' + viewModel.weatherData.current.getFeelsLikeText()}"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -129,9 +125,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{()->viewModel.update()}"
-                android:text="@{weatherData.current.getTimeText(weatherData.current.dt)}"
+                android:text="@{viewModel.weatherData.current.getCurrentTimeText()}"
                 app:layout_constraintBottom_toBottomOf="@+id/current_temp_text"
-                app:layout_constraintEnd_toEndOf="@+id/current_temp_text" />
+                app:layout_constraintEnd_toEndOf="@+id/current_temp_text"
+                tools:text="@string/sun_rise_sample" />
 
             <TextView
                 android:id="@+id/current_uvindex_label"
@@ -170,7 +167,7 @@
                 android:id="@+id/current_uvindex_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(weatherData.current.uvi)}"
+                android:text="@{viewModel.weatherData.current.getUviText()}"
                 app:layout_constraintBottom_toBottomOf="@+id/current_uvindex_label"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline11"
@@ -181,7 +178,7 @@
                 android:id="@+id/current_humidity_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
-                android:text="@{String.valueOf(weatherData.current.humidity)}"
+                android:text="@{viewModel.weatherData.current.getHumidityText()}"
                 app:layout_constraintBottom_toBottomOf="@+id/current_humidity_label"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline11"
@@ -192,7 +189,7 @@
                 android:id="@+id/current_wind_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(weatherData.current.wind_speed)}"
+                android:text="@{viewModel.weatherData.current.getWindSpeedText()}"
                 app:layout_constraintBottom_toBottomOf="@+id/current_wind_label"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline11"
@@ -287,14 +284,14 @@
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/sun_rise_image"
                             app:icon="@{`01d`}"
-                            app:size="@{`@4x`}"
-                            tools:src="@drawable/sub_01d_4x"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/guideline4"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0" />
+                            app:layout_constraintVertical_bias="0.0"
+                            app:size="@{`@4x`}"
+                            tools:src="@drawable/sub_01d_4x" />
 
                         <TextView
                             android:id="@+id/sunrise_tv"
@@ -311,10 +308,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
-                            android:text="@{weatherData.current.getTimeText(weatherData.current.sunrise)}"
+                            android:text="@{viewModel.weatherData.current.getSunriseText()}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:text="@string/sun_rise_sample" />
 
                         <ImageView
                             android:id="@+id/sunset_image"
@@ -322,12 +320,12 @@
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/sun_set_image"
                             app:icon="@{`01n`}"
-                            app:size="@{`@4x`}"
-                            tools:src="@drawable/sub_01d_4x"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/guideline4"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:size="@{`@4x`}"
+                            tools:src="@drawable/sub_01d_4x" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/guideline4"
@@ -351,10 +349,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
-                            android:text="@{weatherData.current.getTimeText(weatherData.current.sunset)}"
+                            android:text="@{viewModel.weatherData.current.getSunsetText()}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/guideline4" />
+                            app:layout_constraintStart_toStartOf="@+id/guideline4"
+                            tools:text="@string/sun_set_sample" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>

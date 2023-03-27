@@ -24,11 +24,10 @@
                 android:id="@+id/hour_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="@{hourly.getTimeText()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/hourly_weather_image"
                 tools:text="@string/sunset_time_sample" />
 
             <TextView
@@ -36,24 +35,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{String.valueOf(hourly.temp)+'°'}"
-                app:layout_constraintBottom_toTopOf="@+id/precipitation_card"
+                app:layout_constraintBottom_toBottomOf="@+id/hourly_weather_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hourly_weather_image"
                 tools:text="@string/current_temps_sample" />
 
             <ImageView
                 android:id="@+id/hourly_weather_image"
-                android:layout_width="90dp"
+                android:layout_width="75dp"
                 android:layout_height="90dp"
                 android:contentDescription="@string/weather_icon"
                 app:icon="@{hourly.weather[0].icon}"
-                app:size="@{`@2x`}"
-                app:layout_constraintBottom_toTopOf="@+id/temp_text_view"
+                app:layout_constraintBottom_toTopOf="@+id/precipitation_card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hour_text_view"
-                app:layout_constraintVertical_bias="0.416"
+                app:layout_constraintTop_toTopOf="parent"
+                app:size="@{`@2x`}"
                 app:srcCompat="@drawable/sub_01d_4x" />
 
             <androidx.cardview.widget.CardView
@@ -76,6 +73,7 @@
                         android:text="@{String.valueOf(Math.round(hourly.pop*100))+'%'}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.6"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="@string/precipitation_sample" />

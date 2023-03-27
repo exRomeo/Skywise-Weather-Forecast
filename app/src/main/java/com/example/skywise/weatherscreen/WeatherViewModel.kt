@@ -6,10 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.skywise.data.Repository
 import com.example.skywise.data.WeatherData
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class WeatherViewModel(private val repository: Repository) : ViewModel() {
@@ -24,9 +21,13 @@ class WeatherViewModel(private val repository: Repository) : ViewModel() {
         Log.i("TAG", "updateData: updating...")
         viewModelScope.launch(Dispatchers.IO) {
             val response = repository.readSavedLocation()/*getLatestData()*/
-            print(response.isSuccessful)
-            _weatherData.value = response.body() as WeatherData
-            Log.i("TAG", "updateData: updated")
+            Log.i("TAG", "updateData: -????????" + response.isSuccessful)
+            if (response.isSuccessful && response.body() != null) {
+                _weatherData.value = response.body() as WeatherData
+                Log.i("TAG", "updateData: updated")
+            } else{
+                _snackBarText.emit("Couldn't retrieve data")
+            }
         }
     }
 

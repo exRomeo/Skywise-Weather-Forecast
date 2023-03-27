@@ -23,4 +23,5 @@
     <string name="uv_index">UV index</string>
     <string name="humidity">Humidity</string>
     <string name="wind">Wind</string>
+    <string name="sun_set_sample">6:16 PM</string>
 </resources>

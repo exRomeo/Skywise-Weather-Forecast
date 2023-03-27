@@ -18,8 +18,13 @@ import kotlinx.coroutines.flow.collectLatest
 
 class WeatherFragment : Fragment() {
     private lateinit var binding: FragmentWeatherBinding
-    private val repository by lazy { Repository(RetrofitClient,this.requireActivity().getPreferences(
-        Context.MODE_PRIVATE)) }
+    private val repository by lazy {
+        Repository(
+            RetrofitClient, this.requireActivity().getPreferences(
+                Context.MODE_PRIVATE
+            )
+        )
+    }
     private val viewModel by lazy {
         ViewModelProvider(
             this.requireActivity(),
@@ -40,15 +45,12 @@ class WeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.updateData()
-        val hourlyAdapter = HourlyAdapter()
-        binding.hourlyAdapter = hourlyAdapter
-        val dailyAdapter = DailyAdapter()
-        binding.dailyAdapter = dailyAdapter
+        binding.hourlyAdapter = HourlyAdapter()
+        binding.dailyAdapter = DailyAdapter()
         lifecycleScope.launchWhenStarted {
             viewModel.weatherData.collectLatest {
-                binding.weatherData = it
-                hourlyAdapter.submitList(it.hourly)
-                dailyAdapter.submitList(it.daily)
+                binding.hourlyAdapter!!.submitList(it.hourly)
+                binding.dailyAdapter!!.submitList(it.daily)
             }
         }
 
