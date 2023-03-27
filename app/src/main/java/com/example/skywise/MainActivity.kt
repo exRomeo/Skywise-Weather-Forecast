@@ -7,16 +7,19 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import com.example.skywise.utils.LocationUtils
 import com.example.skywise.databinding.ActivityMainBinding
 import com.example.skywise.weatherscreen.WeatherFragment
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collectLatest
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -30,12 +33,12 @@ class MainActivity : AppCompatActivity() {
 
 
         lifecycleScope.launchWhenStarted {
-            getCurrentLocation(this@MainActivity).collectLatest {
-                saveLocationToSharedPrefs(this@MainActivity,it)
+            LocationUtils.getCurrentLocation(this@MainActivity,lifecycleScope).collectLatest {
+                LocationUtils.saveLocationToSharedPrefs(this@MainActivity,it)
                 println(
                     "SharedFlow sends his emits ${it.longitude} ${it.latitude}"
                 )
-                readSavedLocation(this@MainActivity)
+                LocationUtils.readSavedLocation(this@MainActivity)
             }
         }
         binding.lifecycleOwner = this
@@ -45,62 +48,7 @@ class MainActivity : AppCompatActivity() {
             fragmentTransaction.add(R.id.fragmentContainerView, weatherFragment, "weather fragment")
         }
         fragmentTransaction.commit()
+        Log.i("TAG", "onCreate: " + Locale.getDefault().language)
     }
 
-    private fun getCurrentLocation(activity: Activity): SharedFlow<Location> {
-        val locationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val sharedFlow = MutableSharedFlow<Location>()
-        if (ContextCompat.checkSelfPermission(
-                activity.applicationContext,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestLocationPermissions(activity)
-        }
-        locationManager.requestLocationUpdates(
-            LocationManager.GPS_PROVIDER,
-            216000000L,
-            1000F
-        ) {
-            lifecycleScope.launchWhenStarted { sharedFlow.emit(it) }
-            println("first \n${it.longitude}  ${it.latitude}")
-        }
-        return sharedFlow
-    }
-
-    private fun requestLocationPermissions(activity: Activity) {
-        try {
-            if (ContextCompat.checkSelfPermission(
-                    activity.applicationContext,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    activity,
-                    arrayOf(
-                        android.Manifest.permission.ACCESS_FINE_LOCATION,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION
-                    ),
-                    101
-                )
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    private fun saveLocationToSharedPrefs(activity: Activity, location: Location) {
-        val sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("lat", location.latitude.toString())
-        editor.putString("lon", location.longitude.toString())
-        editor.apply()
-        println("saved")
-    }
-    private fun readSavedLocation(activity: Activity){
-        val sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
-        val lon = sharedPreferences.getString("lon","0")
-        val lat = sharedPreferences.getString("lat","0")
-        println("shared prefs ->> $lon  $lat")
-    }
 }

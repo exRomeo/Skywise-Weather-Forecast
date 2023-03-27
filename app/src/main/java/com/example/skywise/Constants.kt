@@ -24,8 +24,8 @@ const val MEDIUM = "@2x.png"
 const val LARGE = "@4x.png"
 
 
-@BindingAdapter("imageUrl")
-fun loadImage(view: ImageView, icon: String) {
-    val imgSize: String =  LARGE
-    Glide.with(view).load("$IMG_URL$icon$imgSize").into(view)
+@BindingAdapter("icon","size")
+fun loadImage(view: ImageView, icon: String,size:String) {
+    print("$IMG_URL$icon$size.png")
+    Glide.with(view).load("$IMG_URL$icon$size.png").into(view)
 }

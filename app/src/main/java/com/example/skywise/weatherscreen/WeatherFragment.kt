@@ -1,5 +1,6 @@
 package com.example.skywise.weatherscreen
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +14,12 @@ import com.example.skywise.data.Repository
 import com.example.skywise.data.remotesource.RetrofitClient
 import com.example.skywise.databinding.FragmentWeatherBinding
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 
 class WeatherFragment : Fragment() {
     private lateinit var binding: FragmentWeatherBinding
-    private val repository by lazy { Repository(RetrofitClient,this.requireActivity()) }
+    private val repository by lazy { Repository(RetrofitClient,this.requireActivity().getPreferences(
+        Context.MODE_PRIVATE)) }
     private val viewModel by lazy {
         ViewModelProvider(
             this.requireActivity(),

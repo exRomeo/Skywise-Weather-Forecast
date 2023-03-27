@@ -1,6 +1,5 @@
 package com.example.skywise.data
 
-import com.example.skywise.EN
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -39,7 +38,7 @@ data class Current(
     val weather: ArrayList<Weather> = arrayListOf(Weather())
 ) {
     fun getTimeText(sunTime: Long): String {
-        val dtf = DateTimeFormatter.ofPattern("h:mm a").withLocale(Locale(EN))
+        val dtf = DateTimeFormatter.ofPattern("h:mm a").withLocale(Locale(Locale.getDefault().language))
         return Instant.ofEpochSecond(sunTime).atZone(ZoneId.systemDefault()).format(dtf)
     }
 }
@@ -75,7 +74,7 @@ data class Hourly(
     val rain: Rain? = null
 ) {
     fun getTimeText(): String {
-        val dtf = DateTimeFormatter.ofPattern("ha").withLocale(Locale(EN))
+        val dtf = DateTimeFormatter.ofPattern("ha").withLocale(Locale(Locale.getDefault().language))
         return Instant.ofEpochSecond(this.dt).atZone(ZoneId.systemDefault()).format(dtf)
     }
 
@@ -103,7 +102,7 @@ data class Daily(
     val uvi: Double = 0.0
 ) {
     fun getDayText(): String {
-        val dtf = DateTimeFormatter.ofPattern("EEE dd/MM").withLocale(Locale("en"))
+        val dtf = DateTimeFormatter.ofPattern("EEE dd/MM").withLocale(Locale(Locale.getDefault().language))
         return Instant.ofEpochSecond(this.dt).atZone(ZoneId.systemDefault()).format(dtf)
     }
 
