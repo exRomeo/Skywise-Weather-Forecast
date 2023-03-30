@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.skywise.*
 import com.example.skywise.data.remotesource.RetrofitClient
+import com.example.skywise.settings.SkywiseSettings
 import retrofit2.Response
 import java.util.*
 
@@ -28,6 +29,8 @@ class Repository(private val retrofit: RetrofitClient,private val sharedPreferen
                 API_KEY)
     }
     private suspend fun getLatestSpecificData(lat:Double, lon:Double): Response<WeatherData> {
+
+
         return retrofit.api.oneCall(lat, lon, Locale.getDefault().language, METRIC, listOf(MINUTELY), API_KEY)
     }
 }

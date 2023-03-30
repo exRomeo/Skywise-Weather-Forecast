@@ -25,6 +25,6 @@ const val LARGE = "@4x.png"
 
 
 @BindingAdapter("icon","size")
-fun loadImage(view: ImageView, icon: String,size:String) {
+fun loadImage(view: ImageView, icon: String?,size:String) {
     Glide.with(view).load("$IMG_URL$icon$size.png").into(view)
 }

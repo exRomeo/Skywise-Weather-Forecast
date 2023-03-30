@@ -10,4 +10,9 @@
         android:name="com.example.skywise.weatherscreen.WeatherFragment"
         android:label="Weather"
         tools:layout="@layout/fragment_weather" />
+    <fragment
+        android:id="@+id/favoriteLocationsFragment"
+        android:name="com.example.skywise.favoritelocations.FavoriteLocationsFragment"
+        android:label="Favorite Locations"
+        tools:layout="@layout/fragment_favorite_locations" />
 </navigation>

@@ -37,8 +37,8 @@ class WeatherFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_weather, container, false)
-        binding.lifecycleOwner = this.requireActivity()
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this.requireActivity()
         return binding.root
     }
 
