@@ -10,6 +10,10 @@
             type="com.example.skywise.weatherscreen.WeatherViewModel" />
 
         <variable
+            name="weatherData"
+            type="com.example.skywise.data.WeatherData" />
+
+        <variable
             name="hourlyAdapter"
             type="com.example.skywise.weatherscreen.HourlyAdapter" />
 
@@ -88,18 +92,20 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.25" />
 
-                <ImageView
+                <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/current_weather_image"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="16dp"
                     android:contentDescription="@string/current_weather_image"
-                    android:src="@drawable/sub_01d_4x"
-                    app:icon="@{viewModel.weatherData.current.weather[0].icon}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline5"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:size="@{`@4x`}" />
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/clear_sky_01d"
+                    app:lottie_res_id="@{weatherData.current.weather[0].getAnimation()}" />
 
                 <TextView
                     android:id="@+id/current_temp_text"
@@ -109,7 +115,7 @@
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="8dp"
                     android:gravity="center"
-                    android:text="@{viewModel.weatherData.current.getTempText()}"
+                    android:text="@{weatherData.current.getTempText()}"
                     android:textSize="60sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +130,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:gravity="center"
-                    android:text="@{viewModel.weatherData.getCurrentLocation()}"
+                    android:text="@{weatherData.getCurrentLocation()}"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -139,8 +145,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:gravity="center"
-                    android:text="@{@string/feels_like_temps + ' ' + viewModel.weatherData.current.getFeelsLikeText()}"
-                    android:textSize="20sp"
+                    android:text="@{@string/feels_like_temps + ' ' + weatherData.current.getFeelsLikeText()}"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/current_temp_text"
@@ -152,13 +158,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginBottom="8dp"
                     android:gravity="center"
-                    android:text="@{viewModel.weatherData.current.weather[0].description}"
+                    android:text="@{weatherData.current.weather[0].description}"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@+id/current_weather_image"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline5"
+                    app:layout_constraintTop_toBottomOf="@+id/current_weather_image"
                     tools:text="@string/current_weather_desc_sample" />
 
                 <TextView
@@ -166,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{()->viewModel.update()}"
-                    android:text="@{viewModel.weatherData.current.getCurrentTimeText()}"
+                    android:text="@{weatherData.current.getCurrentTimeText()}"
                     app:layout_constraintBottom_toBottomOf="@+id/current_temp_text"
                     app:layout_constraintEnd_toEndOf="@+id/current_temp_text"
                     tools:text="@string/sun_rise_sample" />
@@ -208,7 +214,7 @@
                     android:id="@+id/current_uvindex_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.weatherData.current.getUviText()}"
+                    android:text="@{weatherData.current.getUviText()}"
                     app:layout_constraintBottom_toBottomOf="@+id/current_uvindex_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintStart_toStartOf="@+id/guideline11"
@@ -219,7 +225,7 @@
                     android:id="@+id/current_humidity_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="19dp"
-                    android:text="@{viewModel.weatherData.current.getHumidityText()}"
+                    android:text="@{weatherData.current.getHumidityText()}"
                     app:layout_constraintBottom_toBottomOf="@+id/current_humidity_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintStart_toStartOf="@+id/guideline11"
@@ -230,7 +236,7 @@
                     android:id="@+id/current_wind_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.weatherData.current.getWindSpeedText()}"
+                    android:text="@{weatherData.current.getWindSpeedText()}"
                     app:layout_constraintBottom_toBottomOf="@+id/current_wind_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintStart_toStartOf="@+id/guideline11"
@@ -244,7 +250,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="190dp" />
+                app:layout_constraintGuide_begin="195dp" />
 
 
             <ScrollView
@@ -293,7 +299,8 @@
                         app:cardMaxElevation="0dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/hourly_card_view">
+                        app:layout_constraintTop_toBottomOf="@+id/hourly_card_view"
+                        tools:visibility="gone">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/daily_recycler_view"
@@ -318,56 +325,58 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="200dp">
 
-                            <ImageView
+                            <com.airbnb.lottie.LottieAnimationView
                                 android:id="@+id/sunrise_image"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginBottom="24dp"
                                 android:contentDescription="@string/sun_rise_image"
-                                app:icon="@{`01d`}"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                                app:layout_constraintHorizontal_bias="0.0"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.0"
-                                app:size="@{`@4x`}"
-                                tools:src="@drawable/sub_01d_4x" />
+                                app:lottie_autoPlay="true"
+                                app:lottie_loop="true"
+                                app:lottie_rawRes="@raw/sunrise" />
 
                             <TextView
                                 android:id="@+id/sunrise_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
                                 android:text="@string/sun_rise"
                                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toBottomOf="@+id/sunrise_image" />
 
                             <TextView
                                 android:id="@+id/sunrise_time_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="16dp"
-                                android:text="@{viewModel.weatherData.current.getSunriseText()}"
-                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="@{weatherData.current.getSunriseText()}"
+                                app:layout_constraintBottom_toTopOf="@+id/sunrise_image"
                                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                                app:layout_constraintHorizontal_bias="0.489"
                                 app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/sunrise_image"
                                 tools:text="@string/sun_rise_sample" />
 
-                            <ImageView
+                            <com.airbnb.lottie.LottieAnimationView
                                 android:id="@+id/sunset_image"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginBottom="24dp"
                                 android:contentDescription="@string/sun_set_image"
-                                app:icon="@{`01n`}"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="@+id/guideline4"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:size="@{`@4x`}"
-                                tools:src="@drawable/sub_01d_4x" />
+                                app:lottie_autoPlay="true"
+                                app:lottie_loop="true"
+                                app:lottie_rawRes="@raw/sunset" />
 
                             <androidx.constraintlayout.widget.Guideline
                                 android:id="@+id/guideline4"
@@ -380,21 +389,20 @@
                                 android:id="@+id/sunset_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
                                 android:text="@string/sun_set"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="@+id/guideline4"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toBottomOf="@+id/sunset_image" />
 
                             <TextView
                                 android:id="@+id/sunset_time_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="16dp"
-                                android:text="@{viewModel.weatherData.current.getSunsetText()}"
-                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="@{weatherData.current.getSunsetText()}"
+                                app:layout_constraintBottom_toTopOf="@+id/sunset_image"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="@+id/guideline4"
+                                app:layout_constraintTop_toTopOf="@+id/sunset_image"
                                 tools:text="@string/sun_set_sample" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>

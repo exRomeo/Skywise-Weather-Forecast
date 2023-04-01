@@ -27,7 +27,7 @@ object DataUtils {
             wind_gust = weatherData.current.wind_gust,
             description = weatherData.current.weather[0].description,
             icon = weatherData.current.weather[0].icon
-            , area = weatherData.area
+            , area = "You're Offline !"
         )
     }
 

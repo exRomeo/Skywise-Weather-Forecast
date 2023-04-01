@@ -17,9 +17,18 @@ object GeocoderUtil {
 
     fun getLocationName(lat: Double, lon: Double): String {
         val addresses = geocoder?.getFromLocation(lat, lon, 1)
-        println("$addresses               44444444444444444444444444444444444444")
-        val address = if(!addresses.isNullOrEmpty()) geocoder?.getFromLocation(lat, lon, 1)?.get(0) else null
-        return "${address?.locality ?: "No Where"}, ${address?.countryCode ?: "i'm lost!"}"
+        val address =
+            if (!addresses.isNullOrEmpty())
+                geocoder?.getFromLocation(lat, lon, 1)?.get(0)
+            else
+                null
+
+        return "${address?.locality ?: ""} ${
+            address?.adminArea?.replace(
+                " Governorate",
+                ""
+            ) ?: ""
+        }, ${address?.countryCode ?: ""}"
     }
 
 }

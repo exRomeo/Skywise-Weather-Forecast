@@ -49,15 +49,8 @@ class WeatherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i("TESTING", "onViewCreated: FRAGMENT")
         binding.hourlyAdapter = HourlyAdapter()
         binding.dailyAdapter = DailyAdapter()
-        lifecycleScope.launchWhenStarted {
-            viewModel.weatherData.collectLatest {
-                binding.hourlyAdapter!!.submitList(it.hourly)
-                binding.dailyAdapter!!.submitList(it.daily)
-            }
-        }
 
         lifecycleScope.launchWhenStarted { viewModel.weatherDTO.collectLatest { showResponse(it) } }
 
@@ -66,7 +59,6 @@ class WeatherFragment : Fragment() {
                 Snackbar.make(binding.root, getString(it), Snackbar.LENGTH_SHORT).show()
             }
         }
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -82,7 +74,7 @@ class WeatherFragment : Fragment() {
                 showData(weatherDTO)
             }
             is WeatherDTO.SuccessOffline -> {
-                showOfflineData()
+                showOfflineData(weatherDTO)
             }
             is WeatherDTO.Failure -> {
                 showFailure()
@@ -102,15 +94,17 @@ class WeatherFragment : Fragment() {
         binding.loadingAnimationb.visibility = View.GONE
         binding.errorAnimationb.visibility = View.GONE
         binding.mainLayout.visibility = View.VISIBLE
+        binding.weatherData = weatherDTO.weatherData
         binding.hourlyAdapter!!.submitList(weatherDTO.weatherData.hourly)
         binding.dailyAdapter!!.submitList(weatherDTO.weatherData.daily)
     }
 
-    private fun showOfflineData() {
+    private fun showOfflineData(weatherDTO: WeatherDTO.SuccessOffline) {
         binding.altLayout.visibility = View.GONE
         binding.loadingAnimationb.visibility = View.GONE
         binding.errorAnimationb.visibility = View.GONE
         binding.mainLayout.visibility = View.VISIBLE
+        binding.weatherData = weatherDTO.weatherData
     }
 
     private fun showFailure() {

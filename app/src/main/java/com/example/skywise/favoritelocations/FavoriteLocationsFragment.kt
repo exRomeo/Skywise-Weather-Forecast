@@ -14,6 +14,8 @@ import com.example.skywise.data.localsource.RoomClient
 import com.example.skywise.data.remotesource.RetrofitClient
 import com.example.skywise.databinding.FragmentFavoriteLocationsBinding
 import com.example.skywise.mapsheet.MapSheet
+import com.example.skywise.utils.ConnectionUtils
+import com.google.android.material.snackbar.Snackbar
 
 
 class FavoriteLocationsFragment : Fragment() {
@@ -50,12 +52,15 @@ class FavoriteLocationsFragment : Fragment() {
 
 
         binding.floatingButton.setOnClickListener {
+            if(ConnectionUtils.checkConnection())
             MapSheet()
                 .show(
                     this.requireActivity()
                         .supportFragmentManager,
                     "mapFragment"
                 )
+            else
+                Snackbar.make(binding.root,"you're currently offline!",Snackbar.LENGTH_SHORT).show()
         }
     }
 

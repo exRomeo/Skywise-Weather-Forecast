@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.skywise.R
 import com.example.skywise.data.FavoriteLocation
 import com.example.skywise.data.Repository
+import com.example.skywise.utils.GeocoderUtil
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -16,10 +17,17 @@ class MapSheetViewModel(val repository: Repository) : ViewModel() {
     val snackBarText = _snackBarText.asSharedFlow()
     fun addLocation(iGeoPoint: IGeoPoint) {
         viewModelScope.launch {
+            val lat = iGeoPoint.latitude
+            val lon = iGeoPoint.longitude
+            val address = GeocoderUtil.getAddress(lat, lon)
             repository.addLocation(
                 FavoriteLocation(
-                    lat = iGeoPoint.latitude,
-                    lon = iGeoPoint.longitude
+                    lat = lat,
+                    lon = lon,
+                    address?.countryCode ?: "",
+                    address?.adminArea?.replace(
+                        " Governorate", ""
+                    ) ?: ""
                 )
             )
             _snackBarText.emit(R.string.location_saved)

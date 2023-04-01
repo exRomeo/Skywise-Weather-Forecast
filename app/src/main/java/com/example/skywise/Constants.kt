@@ -2,6 +2,7 @@ package com.example.skywise
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 
 /*
@@ -24,7 +25,13 @@ const val MEDIUM = "@2x.png"
 const val LARGE = "@4x.png"
 
 
-@BindingAdapter("icon","size")
-fun loadImage(view: ImageView, icon: String?,size:String) {
+@BindingAdapter("icon", "size")
+fun loadImage(view: ImageView, icon: String?, size: String) {
     Glide.with(view).load("$IMG_URL$icon$size.png").into(view)
+}
+
+@BindingAdapter("lottie_res_id")
+fun setAnimation(view: LottieAnimationView, resID: Int) {
+    if (resID > 0)
+        view.setAnimation(resID)
 }

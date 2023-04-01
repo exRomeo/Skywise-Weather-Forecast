@@ -15,20 +15,13 @@ class WeatherViewModel(private val repository: Repository) : ViewModel() {
     private var _weatherDTO = MutableStateFlow<WeatherDTO>(WeatherDTO.Loading)
     val weatherDTO = _weatherDTO.asStateFlow()
 
-
-    private val _weatherData: MutableStateFlow<WeatherData> = MutableStateFlow(WeatherData())
-    val weatherData = _weatherData.asStateFlow()
-
-
     private val _snackBarText = MutableSharedFlow<Int>()
     val snackBarText = _snackBarText.asSharedFlow()
     fun updateData() {
         viewModelScope.launch {
 
             if (weatherDTO.value is WeatherDTO.Failure) {
-
                 _weatherDTO.value = WeatherDTO.Loading
-
             }
 
             if (ConnectionUtils.checkConnection()) {
@@ -39,14 +32,13 @@ class WeatherViewModel(private val repository: Repository) : ViewModel() {
 
                 }.collectLatest {
 
-                    _weatherData.value = it
                     _weatherDTO.value = WeatherDTO.SuccessOnline(it)
 
                 }
             } else {
                 val offlineData = repository.getOfflineData()
-                _weatherData.value = DataUtils.offlineDataToOnlineData(offlineData)
-                _weatherDTO.value = WeatherDTO.SuccessOffline(offlineData)
+
+                _weatherDTO.value = WeatherDTO.SuccessOffline(DataUtils.offlineDataToOnlineData(offlineData))
                 _snackBarText.emit(R.string.showing_offline_data)
             }
 

@@ -1,5 +1,6 @@
 package com.example.skywise.data
 
+import com.example.skywise.R
 import com.example.skywise.utils.ConnectionUtils
 import com.example.skywise.utils.GeocoderUtil
 import java.time.Instant
@@ -19,7 +20,7 @@ data class WeatherData(
     val daily: ArrayList<Daily>? = null,
     val alerts: ArrayList<Alert>? = null
 ) {
-    var area = GeocoderUtil.getLocationName(lat, lon)
+    var area = "You're Offline"
     fun getCurrentLocation(): String {
         if (ConnectionUtils.checkConnection())
             area = GeocoderUtil.getLocationName(lat, lon)
@@ -90,7 +91,31 @@ data class Weather(
     val main: String? = null,
     val description: String? = null,
     val icon: String? = "10d"
-)
+) {
+    fun getAnimation(): Int {
+        return when (icon) {
+            "01d" -> R.raw.clear_sky_01d
+            "01n" -> R.raw.clear_sky_01n
+            "02d" -> R.raw.few_clouds_02d
+            "02n" -> R.raw.few_clouds_02n
+            "03d" -> R.raw.scattered_clouds_03d
+            "03n" -> R.raw.scattered_clouds_03n
+            "04d" -> R.raw.broken_clouds_04d
+            "04n" -> R.raw.broken_clouds_04n
+            "09d" -> R.raw.shower_rain_09d
+            "09n" -> R.raw.shower_rain_09n
+            "10d" -> R.raw.rain_10d
+            "10n" -> R.raw.rain_10n
+            "11d" -> R.raw.thunderstorm_11d
+            "11n" -> R.raw.thunderstorm_11n
+            "13d" -> R.raw.snow_13d
+            "13n" -> R.raw.snow_13n
+            "50d" -> R.raw.mist_50d
+            "50n" -> R.raw.mist_50n
+            else -> R.raw.unknown_weather
+        }
+    }
+}
 
 data class Minutely(
     val dt: Long = 0, val precipitation: Int = 0

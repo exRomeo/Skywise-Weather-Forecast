@@ -1,9 +1,6 @@
 package com.example.skywise
 
-import android.location.Geocoder
-import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -16,12 +13,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.skywise.databinding.ActivityMainBinding
-import com.example.skywise.utils.ConnectionUtils
-import com.example.skywise.utils.GeocoderUtil
 import com.example.skywise.utils.LocationUtils
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.flow.collectLatest
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -31,9 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navView: NavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ConnectionUtils.initialize(this.applicationContext.getSystemService(ConnectivityManager::class.java))
-        GeocoderUtil.initialize(Geocoder(this.applicationContext, Locale.getDefault()))
-        Log.i("TESTING", "onCreate: ACTIVITY")
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         supportActionBar?.hide()
 

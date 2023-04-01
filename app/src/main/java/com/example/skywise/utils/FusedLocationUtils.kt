@@ -1,6 +1,6 @@
 
 package com.example.skywise.utils
 /*
-class FusedLocationUtils {
+FusedLocationUtilsclass FusedLocationUtils {
     lateinit var fusedLocationClient: FusedLocationProviderClient
 }*/
