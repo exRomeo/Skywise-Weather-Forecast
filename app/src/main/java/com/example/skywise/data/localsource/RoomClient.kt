@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.skywise.data.FavoriteLocation
 
-//@Database(entities = [/*Class name here*/], version = 1)
+@Database(entities = [FavoriteLocation::class, OfflineDataModel::class], version = 1, exportSchema = false)
 abstract class RoomClient : RoomDatabase() {
     abstract fun getDao(): SkywiseDao
 
@@ -16,9 +17,7 @@ abstract class RoomClient : RoomDatabase() {
         fun getInstance(context: Context): RoomClient {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    RoomClient::class.java,
-                    "skywise_database"
+                    context.applicationContext, RoomClient::class.java, "skywise_database"
                 ).build()
                 INSTANCE = instance
                 instance

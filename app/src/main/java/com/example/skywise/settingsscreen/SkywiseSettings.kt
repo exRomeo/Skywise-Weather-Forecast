@@ -1,4 +1,4 @@
-package com.example.skywise.settings
+package com.example.skywise.settingsscreen
 
 import com.example.skywise.METRIC
 import java.util.*
@@ -14,7 +14,6 @@ class SkywiseSettings private constructor () {
 
         @Volatile
         private var INSTANCE: SkywiseSettings? = null
-
         fun getInstance(): SkywiseSettings {
             return INSTANCE ?: synchronized(this) {
                 val instance = SkywiseSettings()

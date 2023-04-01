@@ -1,0 +1,25 @@
+package com.example.skywise.utils
+
+import android.location.Address
+import android.location.Geocoder
+
+object GeocoderUtil {
+
+    private var geocoder: Geocoder? = null
+
+    fun initialize(geocoder: Geocoder) {
+        this.geocoder = geocoder
+    }
+
+    fun getAddress(lat: Double, lon: Double): Address? {
+        return geocoder?.getFromLocation(lat, lon, 1)?.get(0)
+    }
+
+    fun getLocationName(lat: Double, lon: Double): String {
+        val addresses = geocoder?.getFromLocation(lat, lon, 1)
+        println("$addresses               44444444444444444444444444444444444444")
+        val address = if(!addresses.isNullOrEmpty()) geocoder?.getFromLocation(lat, lon, 1)?.get(0) else null
+        return "${address?.locality ?: "No Where"}, ${address?.countryCode ?: "i'm lost!"}"
+    }
+
+}

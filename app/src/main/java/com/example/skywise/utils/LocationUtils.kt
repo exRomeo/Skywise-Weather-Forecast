@@ -70,7 +70,4 @@ object LocationUtils {
         println("shared prefs ->> $lon  $lat")
     }
 
-    fun getCityByLocation(location: Location): String {
-        return String()
-    }
 }

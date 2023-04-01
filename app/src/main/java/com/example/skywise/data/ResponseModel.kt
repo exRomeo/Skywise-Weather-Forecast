@@ -1,5 +1,7 @@
 package com.example.skywise.data
 
+import com.example.skywise.utils.ConnectionUtils
+import com.example.skywise.utils.GeocoderUtil
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -17,8 +19,11 @@ data class WeatherData(
     val daily: ArrayList<Daily>? = null,
     val alerts: ArrayList<Alert>? = null
 ) {
+    var area = GeocoderUtil.getLocationName(lat, lon)
     fun getCurrentLocation(): String {
-        return timezone ?: "N/A"
+        if (ConnectionUtils.checkConnection())
+            area = GeocoderUtil.getLocationName(lat, lon)
+        return area
     }
 }
 
@@ -85,13 +90,11 @@ data class Weather(
     val main: String? = null,
     val description: String? = null,
     val icon: String? = "10d"
-) {
-
-}
+)
 
 data class Minutely(
     val dt: Long = 0, val precipitation: Int = 0
-) {}
+)
 
 data class Hourly(
     val dt: Long = 0,
@@ -179,13 +182,14 @@ data class Temp(
 
 data class Rain(
     val _1h: Double = 0.0
-) {}
+)
 
 data class FeelsLike(
-    val day: Double = 0.0, val night: Double = 0.0, val eve: Double = 0.0, val morn: Double = 0.0
-) {
-
-}
+    val day: Double = 0.0,
+    val night: Double = 0.0,
+    val eve: Double = 0.0,
+    val morn: Double = 0.0
+)
 
 data class Alert(
     val sender_name: String? = null,
@@ -194,6 +198,4 @@ data class Alert(
     val end: Long = 0,
     val description: String? = null,
     val tags: ArrayList<String>? = null
-) {
-
-}
+)

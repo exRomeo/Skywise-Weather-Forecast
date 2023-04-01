@@ -4,26 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<variable
-    name="viewModel"
-    type="com.example.skywise.favoritelocations.FavoriteLocationsViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.example.skywise.favoritelocations.FavoriteLocationsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/constraintlayout_favs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".favoritelocations.FavoriteLocationsFragment">
 
 
-        <Button
-            android:id="@+id/button"
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floating_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="?attr/colorPrimary"
+            android:contentDescription="@string/add_locations_to_favorites"
+            android:src="@drawable/add"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

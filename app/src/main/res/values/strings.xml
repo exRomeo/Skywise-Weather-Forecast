@@ -27,4 +27,10 @@
     <string name="weather">Weather</string>
     <string name="favorites">Favorites</string>
     <string name="settings">Settings</string>
+    <string name="add_locations_to_favorites">Add Locations To Favorites</string>
+    <string name="location_saved">Location Saved</string>
+    <string name="data_updated">Data Updated</string>
+    <string name="data_not_retrieved">Couldn\'t retrieve data</string>
+    <string name="updating_data">Updating Data</string>
+    <string name="showing_offline_data">Showing Offline Data</string>
 </resources>

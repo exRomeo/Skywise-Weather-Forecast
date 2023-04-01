@@ -12,6 +12,8 @@
             android:id="@+id/favoriteLocationsFragment"
             android:title="@string/favorites" />
 
-        <item android:title="@string/settings" />
+        <item
+            android:id="@+id/settingsFragment"
+            android:title="@string/settings" />
     </group>
 </menu>

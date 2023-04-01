@@ -1,41 +1,62 @@
 package com.example.skywise.weatherscreen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.skywise.R
 import com.example.skywise.data.Repository
+import com.example.skywise.data.WeatherDTO
 import com.example.skywise.data.WeatherData
-import kotlinx.coroutines.Dispatchers
+import com.example.skywise.utils.ConnectionUtils
+import com.example.skywise.utils.DataUtils
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class WeatherViewModel(private val repository: Repository) : ViewModel() {
+    private var _weatherDTO = MutableStateFlow<WeatherDTO>(WeatherDTO.Loading)
+    val weatherDTO = _weatherDTO.asStateFlow()
+
 
     private val _weatherData: MutableStateFlow<WeatherData> = MutableStateFlow(WeatherData())
     val weatherData = _weatherData.asStateFlow()
 
-    private val _snackBarText = MutableSharedFlow<String>()
-    val snackBarText = _snackBarText.asSharedFlow()
 
+    private val _snackBarText = MutableSharedFlow<Int>()
+    val snackBarText = _snackBarText.asSharedFlow()
     fun updateData() {
-        Log.i("TAG", "updateData: updating...")
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.readSavedLocation()/*getLatestData()*/
-            Log.i("TAG", "updateData: -????????" + response.isSuccessful)
-            if (response.isSuccessful && response.body() != null) {
-                _weatherData.value = response.body() as WeatherData
-                Log.i("TAG", "updateData: updated")
-            } else{
-                _snackBarText.emit("Couldn't retrieve data")
+        viewModelScope.launch {
+
+            if (weatherDTO.value is WeatherDTO.Failure) {
+
+                _weatherDTO.value = WeatherDTO.Loading
+
             }
+
+            if (ConnectionUtils.checkConnection()) {
+                repository.readSavedLocation().catch {
+
+                    _weatherDTO.value = WeatherDTO.Failure(it)
+                    _snackBarText.emit(R.string.data_not_retrieved)
+
+                }.collectLatest {
+
+                    _weatherData.value = it
+                    _weatherDTO.value = WeatherDTO.SuccessOnline(it)
+
+                }
+            } else {
+                val offlineData = repository.getOfflineData()
+                _weatherData.value = DataUtils.offlineDataToOnlineData(offlineData)
+                _weatherDTO.value = WeatherDTO.SuccessOffline(offlineData)
+                _snackBarText.emit(R.string.showing_offline_data)
+            }
+
         }
     }
 
     fun update() {
         updateData()
         viewModelScope.launch {
-            Log.i("TAG", " clicked")
-            _snackBarText.emit("Data Updated")
+            _snackBarText.emit(R.string.updating_data)
         }
     }
 
