@@ -5,7 +5,7 @@ import android.location.Geocoder
 
 object GeocoderUtil {
 
-    private var geocoder: Geocoder? = null
+    private lateinit var geocoder: Geocoder
 
     fun initialize(geocoder: Geocoder) {
         this.geocoder = geocoder

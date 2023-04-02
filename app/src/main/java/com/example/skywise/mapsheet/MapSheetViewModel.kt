@@ -19,15 +19,12 @@ class MapSheetViewModel(val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             val lat = iGeoPoint.latitude
             val lon = iGeoPoint.longitude
-            val address = GeocoderUtil.getAddress(lat, lon)
+            val area = GeocoderUtil.getLocationName(lat, lon)
             repository.addLocation(
                 FavoriteLocation(
                     lat = lat,
                     lon = lon,
-                    address?.countryCode ?: "",
-                    address?.adminArea?.replace(
-                        " Governorate", ""
-                    ) ?: ""
+                    area = area
                 )
             )
             _snackBarText.emit(R.string.location_saved)

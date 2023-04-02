@@ -33,4 +33,11 @@
     <string name="data_not_retrieved">Couldn\'t retrieve data</string>
     <string name="updating_data">Updating Data</string>
     <string name="showing_offline_data">Showing Offline Data</string>
+    <string name="location_area">Alexandria, EG</string>
+    <string name="current">Current</string>
+    <string name="temprature">Temprature</string>
+    <string name="weather_desc">Condition</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="high">High</string>
+    <string name="low">Low</string>
 </resources>

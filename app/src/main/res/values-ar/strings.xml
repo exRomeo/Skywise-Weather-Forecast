@@ -34,4 +34,11 @@
     <string name="data_not_retrieved">لم يتم تحديث البيانات</string>
     <string name="updating_data">جاري تحديث البيانات</string>
     <string name="showing_offline_data">يتم عرض البيانات المحفوظة مسبقا لعدم توافر انترنت</string>
+    <string name="location_area">الإسكندرية مصر</string>
+    <string name="current">الأن</string>
+    <string name="temprature">درجة الحرارة</string>
+    <string name="weather_desc">الحالة الجوية</string>
+    <string name="wind_speed">سرعة الرياح</string>
+    <string name="high">العظمى</string>
+    <string name="low">الصغرى</string>
 </resources>

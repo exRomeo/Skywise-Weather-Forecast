@@ -3,6 +3,7 @@ package com.example.skywise.data
 import android.content.SharedPreferences
 import android.util.Log
 import com.example.skywise.API_KEY
+import com.example.skywise.HOURLY
 import com.example.skywise.METRIC
 import com.example.skywise.MINUTELY
 import com.example.skywise.data.localsource.OfflineDataModel
@@ -56,15 +57,15 @@ class Repository(
         } else flow { throw Exception("Couldn't Fetch Data !") }
     }
 
-    fun getLatestData(): Flow<WeatherData> {
+    fun getLatestData(lat:Double,lon:Double): Flow<WeatherData> {
         return flow {
             val response = api
                 .oneCall(
-                    31.110456666666668,
-                    29.792248333333333,
+                    lat,
+                    lon,
                     Locale.getDefault().language,
                     METRIC,
-                    listOf(MINUTELY),
+                    listOf(MINUTELY, HOURLY),
                     API_KEY
                 )
             if (response.isSuccessful && response.body() != null)

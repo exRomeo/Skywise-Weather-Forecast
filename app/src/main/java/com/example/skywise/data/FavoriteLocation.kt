@@ -8,8 +8,7 @@ import java.time.LocalDate
 data class FavoriteLocation(
     val lat: Double,
     val lon: Double,
-    var country: String = "",
-    var city: String = "",
+    var area: String = "",
     var currentLocation: Boolean = false
 ) {
     @PrimaryKey(autoGenerate = true)

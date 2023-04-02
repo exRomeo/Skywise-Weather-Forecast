@@ -53,7 +53,7 @@ class MapSheet : BottomSheetDialogFragment() {
         Configuration.getInstance()
             .load(context, PreferenceManager.getDefaultSharedPreferences(context))
 
-        binding.mapView.setTileSource(TileSourceFactory.MAPNIK)
+//        binding.mapView.setTileSource(TileSourceFactory.MAPNIK)
         binding.mapView.setMultiTouchControls(true)
         binding.mapView.controller.setZoom(2.5)
 

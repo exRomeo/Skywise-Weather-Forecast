@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.skywise.R
 import com.example.skywise.data.Repository
 import com.example.skywise.data.localsource.RoomClient
@@ -23,7 +24,9 @@ class FavoriteLocationsFragment : Fragment() {
     private lateinit var binding: FragmentFavoriteLocationsBinding
     private val repository by lazy {
         Repository(
-            RetrofitClient,RoomClient.getInstance(this.requireActivity().applicationContext), this.requireActivity().getPreferences(
+            RetrofitClient,
+            RoomClient.getInstance(this.requireActivity().applicationContext),
+            this.requireActivity().getPreferences(
                 Context.MODE_PRIVATE
             )
         )
@@ -42,7 +45,11 @@ class FavoriteLocationsFragment : Fragment() {
         )
         binding.lifecycleOwner = this.requireActivity()
         binding.viewModel = viewModel
-
+        binding.adapter = FavoriteLocationsAdapter(viewModel)
+        viewModel.getFavoriteLocations()
+        lifecycleScope.launchWhenStarted {
+            viewModel.favoriteLocation.collect { binding.adapter!!.submitList(it) }
+        }
 
         return binding.root
     }
@@ -52,15 +59,16 @@ class FavoriteLocationsFragment : Fragment() {
 
 
         binding.floatingButton.setOnClickListener {
-            if(ConnectionUtils.checkConnection())
-            MapSheet()
-                .show(
-                    this.requireActivity()
-                        .supportFragmentManager,
-                    "mapFragment"
-                )
+            if (ConnectionUtils.checkConnection())
+                MapSheet()
+                    .show(
+                        this.requireActivity()
+                            .supportFragmentManager,
+                        "mapFragment"
+                    )
             else
-                Snackbar.make(binding.root,"you're currently offline!",Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, "you're currently offline!", Snackbar.LENGTH_SHORT)
+                    .show()
         }
     }
 
