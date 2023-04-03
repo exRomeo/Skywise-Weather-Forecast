@@ -42,4 +42,12 @@
     <string name="low">Low</string>
     <string name="couldnt_fetch_data">Couldn\'t Fetch Data</string>
     <string name="try_again">Click here to try again</string>
+    <string name="language">Language</string>
+    <string name="units">Units</string>
+    <string name="metric">Metric</string>
+    <string name="standard">Standard</string>
+    <string name="imperial">Imperial</string>
+    <string name="location">Location</string>
+    <string name="select_on_map">Select On Map</string>
+    <string name="gps">GPS</string>
 </resources>

@@ -43,4 +43,12 @@
     <string name="low">الصغرى</string>
     <string name="couldnt_fetch_data">فشل الإتصال بالخادم</string>
     <string name="try_again">محاولة مرة اخرى</string>
+    <string name="language">اللغة</string>
+    <string name="units">الوحدات</string>
+    <string name="metric">متر / كم</string>
+    <string name="standard">كلفن</string>
+    <string name="imperial">قدم / ميل</string>
+    <string name="location">تحديد الموقع</string>
+    <string name="select_on_map">أختر على الخريطة</string>
+    <string name="gps">نظام تحديد المواقع</string>
 </resources>

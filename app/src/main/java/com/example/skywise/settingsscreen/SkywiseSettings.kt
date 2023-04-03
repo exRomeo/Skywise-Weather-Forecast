@@ -1,25 +1,44 @@
 package com.example.skywise.settingsscreen
 
-import com.example.skywise.METRIC
+import android.content.SharedPreferences
 import java.util.*
 
-class SkywiseSettings private constructor () {
+object SkywiseSettings {
 
+
+    const val AR = "ar"
+    const val EN = "en"
+    private const val METRIC = "metric"
+    const val STANDARD = "standard"
+    const val IMPERIAL = "imperial"
+
+    lateinit var sharedPreferences: SharedPreferences
+        private set
     var lat: Double? = null
+        private set
     var lon: Double? = null
+        private set
     var units: String = METRIC
-    var language: String = Locale.getDefault().language
+        private set
+    var lang: String = Locale.getDefault().language
+        private set
 
-    companion object {
 
-        @Volatile
-        private var INSTANCE: SkywiseSettings? = null
-        fun getInstance(): SkywiseSettings {
-            return INSTANCE ?: synchronized(this) {
-                val instance = SkywiseSettings()
-                INSTANCE = instance
-                instance
-            }
-        }
+    fun initialize(sharedPreferences: SharedPreferences) {
+        this.sharedPreferences = sharedPreferences
+    }
+
+    fun setLatitude(latitude: Double) {
+        lat = latitude
+        sharedPreferences.edit().putString("lat", lat.toString()).apply()
+    }
+
+    fun setLongitude(longitude: Double) {
+        lon = longitude
+        sharedPreferences.edit().putString("lon", lon.toString()).apply()
+    }
+
+    fun setUnits(units: String) {
+        sharedPreferences.edit().putString("units", units).apply()
     }
 }
