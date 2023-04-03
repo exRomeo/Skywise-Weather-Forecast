@@ -41,4 +41,6 @@
     <string name="wind_speed">سرعة الرياح</string>
     <string name="high">العظمى</string>
     <string name="low">الصغرى</string>
+    <string name="couldnt_fetch_data">فشل الإتصال بالخادم</string>
+    <string name="try_again">محاولة مرة اخرى</string>
 </resources>

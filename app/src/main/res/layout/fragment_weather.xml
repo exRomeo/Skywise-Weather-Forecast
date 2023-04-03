@@ -45,28 +45,60 @@
                 app:lottie_rawRes="@raw/loading_whirl"
                 tools:srcCompat="@raw/loading_whirl" />
 
-            <com.airbnb.lottie.LottieAnimationView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/error_animationb"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/error_animation"
-                tools:srcCompat="@raw/error_animation" />
+                tools:visibility="visible">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottieAnimationView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/error_animation"
+                    tools:srcCompat="@raw/error_animation" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="100dp"
+                    android:text="@string/couldnt_fetch_data"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/lottieAnimationView"
+                    app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"
+                    app:layout_constraintStart_toStartOf="@+id/lottieAnimationView" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:onClick="@{()->viewModel.update()}"
+                    android:text="@string/try_again"
+                    android:textColor="#0B61A2"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/textView"
+                    app:layout_constraintStart_toStartOf="@+id/textView"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/main_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutDescription="@xml/fragment_weather_xml_main_layout_scene">
+            app:layoutDescription="@xml/fragment_weather_xml_main_layout_scene"
+            tools:visibility="gone">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/current_details_layout"
@@ -299,8 +331,7 @@
                         app:cardMaxElevation="0dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/hourly_card_view"
-                        tools:visibility="gone">
+                        app:layout_constraintTop_toBottomOf="@+id/hourly_card_view">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/daily_recycler_view"

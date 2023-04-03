@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.skywise.R
 import com.example.skywise.data.FavoriteLocation
-import com.example.skywise.data.WeatherData
 import com.example.skywise.databinding.FavoriteItemLayoutBinding
+import com.example.skywise.utils.ConnectionUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ class FavoriteLocationsAdapter(val viewModel: FavoriteLocationsViewModel) :
     ListAdapter<FavoriteLocation, FavoriteLocationsAdapter.ViewHolder>(LocationDiffUtil()) {
     var previous = -1
     var selected = -1
-    var weatherDetails = MutableSharedFlow<WeatherData>()
+    private lateinit var job: Job
 
     inner class ViewHolder(val binding: FavoriteItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -43,25 +43,29 @@ class FavoriteLocationsAdapter(val viewModel: FavoriteLocationsViewModel) :
         holder.binding.location = current
         holder.binding.viewModel = viewModel
         holder.binding.locationCard.setOnClickListener {
-            Log.i("TAG", "onBindViewHolder: Clicked")
-            viewModel.getLocationData(current)
-            viewModel.getLocationData(current)
-            previous = selected
-            selected = position
-            CoroutineScope(Dispatchers.Main).launch {
-                viewModel.shownLocation.debounce(0).collectLatest() {
-                    Log.i("TAG", "onBindViewHolder: TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG <<<<<<<-- $position")
-                    notifyItemChanged(position)
-                    notifyItemChanged(previous)
+            if (selected != position && ConnectionUtils.checkConnection()) {
+                Log.i("TAG", "onBindViewHolder: Clicked")
+                viewModel.getLocationData(current)
+                if (::job.isInitialized)
+                    job.cancel()
+                job = CoroutineScope(Dispatchers.Main).launch {
+                    viewModel.shownLocation.debounce(150).collectLatest() {
+                        Log.i("TAG", "onBindViewHolder: Listening from $position - ${current.area}")
+                        previous = selected
+                        selected = position
+                        notifyItemChanged(position)
+                        notifyItemChanged(previous)
+                    }
                 }
             }
         }
         Log.i("TAG", "onBindViewHolder: $position")
-//        holder.binding.weatherDetails = WeatherData()
+
 
         holder.binding.infoCard.visibility =
             if (selected == position) {
-                /*if (holder.binding.infoCard.isVisible) View.GONE else*/ View.VISIBLE
+                Log.i("TAG", ":  ")
+                View.VISIBLE
             } else {
                 View.GONE
             }
@@ -72,7 +76,6 @@ class FavoriteLocationsAdapter(val viewModel: FavoriteLocationsViewModel) :
         else
             holder.binding.removeButton.visibility = View.VISIBLE
     }
-
 
 }
 

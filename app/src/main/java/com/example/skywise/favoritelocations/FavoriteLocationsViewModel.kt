@@ -27,6 +27,7 @@ class FavoriteLocationsViewModel(val repository: Repository) : ViewModel() {
     }
     fun getLocationData(favoriteLocation: FavoriteLocation){
         viewModelScope.launch{
+            _shownLocation.value = WeatherData()
             repository.getLatestData(favoriteLocation.lat, favoriteLocation.lon).collect() {
                 _shownLocation.value = it
             }

@@ -12,7 +12,7 @@ import kotlin.math.roundToInt
 data class WeatherData(
     val lat: Double = 0.0,
     val lon: Double = 0.0,
-    val timezone: String? = null,
+    val timezone: String? = "",
     val timezone_offset: Long = 0,
     val current: Current = Current(),
     val minutely: ArrayList<Minutely>? = null,
@@ -52,7 +52,7 @@ data class Current(
     }
 
     fun getHumidityText(): String {
-        return humidity.toString()
+        return "$humidity%"
     }
 
     fun getWindSpeedText(): String {
@@ -88,8 +88,8 @@ data class Current(
 
 data class Weather(
     val id: Int = 0,
-    val main: String? = null,
-    val description: String? = null,
+    val main: String? = "",
+    val description: String? = "",
     val icon: String? = "10d"
 ) {
     fun getAnimation(): Int {
@@ -134,7 +134,7 @@ data class Hourly(
     val wind_speed: Double = 0.0,
     val wind_deg: Long = 0,
     val wind_gust: Double = 0.0,
-    val weather: ArrayList<Weather>? = null,
+    val weather: ArrayList<Weather>? = arrayListOf(Weather()),
     val pop: Double = 0.0,
     val rain: Rain? = null
 ) {
@@ -217,10 +217,10 @@ data class FeelsLike(
 )
 
 data class Alert(
-    val sender_name: String? = null,
-    val event: String? = null,
+    val sender_name: String? = "",
+    val event: String? = "",
     val start: Long = 0,
     val end: Long = 0,
-    val description: String? = null,
-    val tags: ArrayList<String>? = null
+    val description: String? = "",
+    val tags: ArrayList<String>? = arrayListOf("")
 )
