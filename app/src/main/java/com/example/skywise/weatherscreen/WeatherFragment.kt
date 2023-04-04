@@ -1,8 +1,6 @@
 package com.example.skywise.weatherscreen
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,10 +24,7 @@ class WeatherFragment : Fragment() {
     private val repository by lazy {
         Repository(
             RetrofitClient,
-            RoomClient.getInstance(this.requireActivity().applicationContext),
-            this.requireActivity().getPreferences(
-                Context.MODE_PRIVATE
-            )
+            RoomClient.getInstance(this.requireActivity().applicationContext)
         )
     }
     private val viewModel by lazy {
@@ -51,7 +46,7 @@ class WeatherFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.hourlyAdapter = HourlyAdapter()
         binding.dailyAdapter = DailyAdapter()
-
+        viewModel.updateData()
         lifecycleScope.launchWhenStarted { viewModel.weatherDTO.collectLatest { showResponse(it) } }
 
         lifecycleScope.launchWhenStarted {
@@ -61,10 +56,6 @@ class WeatherFragment : Fragment() {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.updateData()
-    }
     private fun showResponse(weatherDTO: WeatherDTO) {
         when (weatherDTO) {
             is WeatherDTO.Loading -> {

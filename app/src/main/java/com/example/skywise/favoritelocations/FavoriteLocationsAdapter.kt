@@ -44,13 +44,11 @@ class FavoriteLocationsAdapter(val viewModel: FavoriteLocationsViewModel) :
         holder.binding.viewModel = viewModel
         holder.binding.locationCard.setOnClickListener {
             if (selected != position && ConnectionUtils.checkConnection()) {
-                Log.i("TAG", "onBindViewHolder: Clicked")
                 viewModel.getLocationData(current)
                 if (::job.isInitialized)
                     job.cancel()
                 job = CoroutineScope(Dispatchers.Main).launch {
                     viewModel.shownLocation.debounce(150).collectLatest() {
-                        Log.i("TAG", "onBindViewHolder: Listening from $position - ${current.area}")
                         previous = selected
                         selected = position
                         notifyItemChanged(position)
@@ -59,12 +57,10 @@ class FavoriteLocationsAdapter(val viewModel: FavoriteLocationsViewModel) :
                 }
             }
         }
-        Log.i("TAG", "onBindViewHolder: $position")
 
 
         holder.binding.infoCard.visibility =
             if (selected == position) {
-                Log.i("TAG", ":  ")
                 View.VISIBLE
             } else {
                 View.GONE

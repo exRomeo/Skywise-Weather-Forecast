@@ -2,6 +2,7 @@ package com.example.skywise.data.localsource
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.skywise.settingsscreen.SkywiseSettings
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -69,7 +70,7 @@ data class OfflineDataModel(
 
     private fun getTimeText(sunTime: Long): String {
         val dtf =
-            DateTimeFormatter.ofPattern("h:mm a").withLocale(Locale(Locale.getDefault().language))
+            DateTimeFormatter.ofPattern("h:mm a").withLocale(Locale(SkywiseSettings.language()))
         return Instant.ofEpochSecond(sunTime).atZone(ZoneId.systemDefault()).format(dtf)
     }
 }

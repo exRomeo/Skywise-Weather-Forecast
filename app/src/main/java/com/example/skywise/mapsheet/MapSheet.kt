@@ -28,10 +28,7 @@ class MapSheet : BottomSheetDialogFragment() {
     private val repository by lazy {
         Repository(
             RetrofitClient,
-            RoomClient.getInstance(this.requireActivity().applicationContext),
-            this.requireActivity().getPreferences(
-                Context.MODE_PRIVATE
-            )
+            RoomClient.getInstance(this.requireActivity().applicationContext)
         )
     }
     private val viewModel by lazy {

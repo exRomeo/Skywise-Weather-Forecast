@@ -1,6 +1,7 @@
 package com.example.skywise
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -13,6 +14,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.skywise.databinding.ActivityMainBinding
+import com.example.skywise.settingsscreen.SkywiseSettings
 import com.example.skywise.utils.LocationUtils
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.flow.collectLatest
@@ -31,10 +33,14 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launchWhenStarted {
             LocationUtils.getCurrentLocation(this@MainActivity, lifecycleScope).collectLatest {
-                LocationUtils.saveLocationToSharedPrefs(this@MainActivity, it)
-                LocationUtils.readSavedLocation(this@MainActivity)
+                SkywiseSettings.setLocation(it)
+                Log.i(
+                    "TAG",
+                    "Read Location -> lat: ${SkywiseSettings.lat}, lon: ${SkywiseSettings.lon}"
+                )
             }
         }
+
         binding.lifecycleOwner = this
 
         drawerLayout = binding.drawerLayout

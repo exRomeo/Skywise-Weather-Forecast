@@ -50,4 +50,5 @@
     <string name="location">Location</string>
     <string name="select_on_map">Select On Map</string>
     <string name="gps">GPS</string>
+    <string name="offline_message">you\'re currently offline!</string>
 </resources>

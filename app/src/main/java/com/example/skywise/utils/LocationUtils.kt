@@ -28,7 +28,6 @@ object LocationUtils {
             1000F
         ) {
             lifecycleScope.launchWhenStarted { sharedFlow.emit(it) }
-            println("first \n${it.longitude}  ${it.latitude}")
         }
         return sharedFlow
     }
@@ -54,20 +53,8 @@ object LocationUtils {
         }
     }
 
-    fun saveLocationToSharedPrefs(activity: Activity, location: Location) {
-        val sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("lat", location.latitude.toString())
-        editor.putString("lon", location.longitude.toString())
-        editor.apply()
-        println("saved")
-    }
 
-    fun readSavedLocation(activity: Activity) {
-        val sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
-        val lon = sharedPreferences.getString("lon", "0")
-        val lat = sharedPreferences.getString("lat", "0")
-        println("shared prefs ->> $lon  $lat")
-    }
+
+
 
 }

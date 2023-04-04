@@ -1,6 +1,7 @@
 package com.example.skywise.data
 
 import com.example.skywise.R
+import com.example.skywise.settingsscreen.SkywiseSettings
 import com.example.skywise.utils.ConnectionUtils
 import com.example.skywise.utils.GeocoderUtil
 import java.time.Instant
@@ -81,7 +82,7 @@ data class Current(
 
     private fun getTimeText(sunTime: Long): String {
         val dtf =
-            DateTimeFormatter.ofPattern("h:mm a").withLocale(Locale(Locale.getDefault().language))
+            DateTimeFormatter.ofPattern("h:mm a").withLocale(Locale(SkywiseSettings.language()))
         return Instant.ofEpochSecond(sunTime).atZone(ZoneId.systemDefault()).format(dtf)
     }
 }
@@ -148,7 +149,7 @@ data class Hourly(
     }
 
     fun getTimeText(): String {
-        val dtf = DateTimeFormatter.ofPattern("ha").withLocale(Locale(Locale.getDefault().language))
+        val dtf = DateTimeFormatter.ofPattern("ha").withLocale(Locale(SkywiseSettings.language()))
         return Instant.ofEpochSecond(this.dt).atZone(ZoneId.systemDefault()).format(dtf)
     }
 
@@ -182,7 +183,7 @@ data class Daily(
 
     fun getDayText(): String {
         val dtf = DateTimeFormatter.ofPattern("EEE dd/MM")
-            .withLocale(Locale(Locale.getDefault().language))
+            .withLocale(Locale(SkywiseSettings.language()))
         return Instant.ofEpochSecond(this.dt).atZone(ZoneId.systemDefault()).format(dtf)
     }
 

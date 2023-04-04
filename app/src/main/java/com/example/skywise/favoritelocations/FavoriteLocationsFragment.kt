@@ -25,10 +25,7 @@ class FavoriteLocationsFragment : Fragment() {
     private val repository by lazy {
         Repository(
             RetrofitClient,
-            RoomClient.getInstance(this.requireActivity().applicationContext),
-            this.requireActivity().getPreferences(
-                Context.MODE_PRIVATE
-            )
+            RoomClient.getInstance(this.requireActivity().applicationContext)
         )
     }
     private val viewModel: FavoriteLocationsViewModel by lazy {
@@ -67,7 +64,7 @@ class FavoriteLocationsFragment : Fragment() {
                         "mapFragment"
                     )
             else
-                Snackbar.make(binding.root, "you're currently offline!", Snackbar.LENGTH_SHORT)
+                Snackbar.make(binding.root, getString(R.string.offline_message), Snackbar.LENGTH_SHORT)
                     .show()
         }
     }

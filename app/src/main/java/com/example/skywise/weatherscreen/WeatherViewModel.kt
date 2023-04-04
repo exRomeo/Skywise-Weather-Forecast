@@ -2,10 +2,12 @@ package com.example.skywise.weatherscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.skywise.API_KEY
+import com.example.skywise.MINUTELY
 import com.example.skywise.R
 import com.example.skywise.data.Repository
 import com.example.skywise.data.WeatherDTO
-import com.example.skywise.data.WeatherData
+import com.example.skywise.settingsscreen.SkywiseSettings
 import com.example.skywise.utils.ConnectionUtils
 import com.example.skywise.utils.DataUtils
 import kotlinx.coroutines.flow.*
@@ -25,7 +27,14 @@ class WeatherViewModel(private val repository: Repository) : ViewModel() {
             }
 
             if (ConnectionUtils.checkConnection()) {
-                repository.readSavedLocation().catch {
+                repository.getLocationData(
+                    SkywiseSettings.lat,
+                    SkywiseSettings.lon,
+                    SkywiseSettings.language(),
+                    SkywiseSettings.units,
+                    listOf(MINUTELY),
+                    API_KEY
+                ).catch {
 
                     _weatherDTO.value = WeatherDTO.Failure(it)
                     _snackBarText.emit(R.string.data_not_retrieved)
@@ -38,7 +47,8 @@ class WeatherViewModel(private val repository: Repository) : ViewModel() {
             } else {
                 val offlineData = repository.getOfflineData()
 
-                _weatherDTO.value = WeatherDTO.SuccessOffline(DataUtils.offlineDataToOnlineData(offlineData))
+                _weatherDTO.value =
+                    WeatherDTO.SuccessOffline(DataUtils.offlineDataToOnlineData(offlineData))
                 _snackBarText.emit(R.string.showing_offline_data)
             }
 
