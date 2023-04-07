@@ -43,14 +43,15 @@
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/loading_whirl"
-                tools:srcCompat="@raw/loading_whirl" />
+                tools:srcCompat="@raw/loading_whirl"
+                tools:visibility="visible" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/error_animationb"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone"
-                tools:visibility="visible">
+                tools:visibility="gone">
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/lottieAnimationView"
@@ -98,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutDescription="@xml/fragment_weather_xml_main_layout_scene"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/current_details_layout"

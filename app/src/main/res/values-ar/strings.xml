@@ -52,4 +52,6 @@
     <string name="select_on_map">أختر على الخريطة</string>
     <string name="gps">نظام تحديد المواقع</string>
     <string name="offline_message">أنت غير متصل بالإنترنت</string>
+    <string name="english">English</string>
+    <string name="arabic">العربية</string>
 </resources>

@@ -1,20 +1,31 @@
 package com.example.skywise.settingsscreen
 
+import android.app.Activity
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
-import com.example.skywise.IMPERIAL
-import com.example.skywise.METRIC
-import com.example.skywise.STANDARD
+import com.example.skywise.mapsheet.MapSheet
+
 
 class SettingsViewModel : ViewModel() {
 
 
-    fun setMetric() {
-        SkywiseSettings.setUnits(METRIC)
+    fun setUnits(units: String) {
+        SkywiseSettings.setUnits(units)
     }
-    fun setStandard() {
-        SkywiseSettings.setUnits(STANDARD)
+
+    fun setLanguage(language: String, activity: Activity) {
+        SkywiseSettings.setLang(language)
+        SkywiseSettings.updateLocale(activity)
+        activity.recreate()
     }
-    fun setImperial() {
-        SkywiseSettings.setUnits(IMPERIAL)
+
+    fun showMap(supportFragmentManager: FragmentManager) {
+        MapSheet().show(
+            supportFragmentManager,
+            "mapFragment"
+        )
+        SkywiseSettings.requiresLocation = true
     }
+
 }
+

@@ -1,8 +1,14 @@
 package com.example.skywise.settingsscreen
 
+import android.app.Activity
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.location.Geocoder
 import android.location.Location
+import android.text.TextUtils
 import android.util.Log
+import android.view.View
+import com.example.skywise.utils.GeocoderUtil
 import java.time.LocalDate
 import java.util.*
 
@@ -14,9 +20,14 @@ object SkywiseSettings {
     const val ENGLISH = "en"
     const val MINUTELY = "minutely"
     const val HOURLY = "hourly"
-    private const val METRIC = "metric"
-    private const val STANDARD = "standard"
-    private const val IMPERIAL = "imperial"
+    const val METRIC = "metric"
+    const val STANDARD = "standard"
+    const val IMPERIAL = "imperial"
+    const val SMALL = ".png"
+    const val MEDIUM = "@2x.png"
+    const val LARGE = "@4x.png"
+
+    var requiresLocation = false
 
     lateinit var sharedPreferences: SharedPreferences
         private set
@@ -28,7 +39,6 @@ object SkywiseSettings {
         private set
     var lang: String = Locale.getDefault().language
         private set
-
 
     fun initialize(sharedPreferences: SharedPreferences) {
         this.sharedPreferences = sharedPreferences
@@ -64,7 +74,10 @@ object SkywiseSettings {
         sharedPreferences.edit().putBoolean("isFirstTime", true).apply()
     }
 
-    fun language(): String = Locale.getDefault().language
+    fun setLang(language: String) {
+        this.lang = language
+        sharedPreferences.edit().putString("language", language).apply()
+    }
 
     fun currentDate(): String {
         return LocalDate.now().toString()
@@ -74,6 +87,29 @@ object SkywiseSettings {
         lat = (sharedPreferences.getString("lat", "0.0"))?.toDouble() ?: 0.0
         lon = (sharedPreferences.getString("lon", "0.0"))?.toDouble() ?: 0.0
         units = sharedPreferences.getString("units", units).toString()
+        lang = sharedPreferences.getString("language", lang).toString()
     }
+
+    @Suppress("DEPRECATION")
+    fun updateLocale(activity: Activity) {
+        val local = Locale(lang)
+        Locale.setDefault(local)
+        val config = Configuration()
+        config.setLocale(local)
+        activity.baseContext.resources.updateConfiguration(
+            config,
+            activity.baseContext.resources.displayMetrics
+        )
+
+        val layoutDirection =
+            if (TextUtils.getLayoutDirectionFromLocale(local) == View.LAYOUT_DIRECTION_RTL) {
+                View.LAYOUT_DIRECTION_RTL
+            } else {
+                View.LAYOUT_DIRECTION_LTR
+            }
+        activity.window.decorView.layoutDirection = layoutDirection
+        GeocoderUtil.initialize(Geocoder(activity.applicationContext, Locale(lang)))
+    }
+
 
 }

@@ -1,6 +1,5 @@
 package com.example.skywise.mapsheet
 
-import android.content.Context
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
@@ -15,6 +14,7 @@ import com.example.skywise.data.Repository
 import com.example.skywise.data.localsource.RoomClient
 import com.example.skywise.data.remotesource.RetrofitClient
 import com.example.skywise.databinding.MapSheetBinding
+import com.example.skywise.settingsscreen.SkywiseSettings
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.flow.collectLatest
@@ -61,7 +61,12 @@ class MapSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         collectFlows()
         binding.addLocationButton.setOnClickListener {
-            viewModel.addLocation(binding.mapView.mapCenter)
+            if (SkywiseSettings.requiresLocation) {
+                viewModel.updateLocation(binding.mapView.mapCenter)
+            } else {
+                viewModel.addLocation(binding.mapView.mapCenter)
+            }
+            this.dismiss()
         }
     }
 

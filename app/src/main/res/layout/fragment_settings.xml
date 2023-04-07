@@ -14,7 +14,7 @@
         tools:context=".settingsscreen.SettingsFragment">
 
         <TextView
-            android:id="@+id/favorites_title"
+            android:id="@+id/settings_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -25,67 +25,54 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline13"
+            android:id="@+id/units_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="64dp" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline14"
+            android:id="@+id/settings_gl_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="4dp" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline15"
+            android:id="@+id/settings_gl_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_end="4dp" />
 
         <TextView
-            android:id="@+id/lang_tv"
+            android:id="@+id/units_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/units"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/guideline18"
-            app:layout_constraintEnd_toStartOf="@+id/guideline15"
-            app:layout_constraintStart_toStartOf="@+id/guideline14"
-            app:layout_constraintTop_toTopOf="@+id/guideline13" />
+            app:layout_constraintEnd_toStartOf="@+id/settings_gl_end"
+            app:layout_constraintStart_toStartOf="@+id/settings_gl_start"
+            app:layout_constraintTop_toTopOf="@+id/units_guideline" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline18"
+            android:id="@+id/location_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="110dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="158dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="204dp" />
+            app:layout_constraintGuide_begin="152dp" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/units_settings_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:cardCornerRadius="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline19"
-            app:layout_constraintEnd_toStartOf="@+id/guideline15"
-            app:layout_constraintStart_toStartOf="@+id/guideline14"
-            app:layout_constraintTop_toTopOf="@+id/guideline18">
+            app:layout_constraintEnd_toStartOf="@+id/settings_gl_end"
+            app:layout_constraintStart_toStartOf="@+id/settings_gl_start"
+            app:layout_constraintTop_toBottomOf="@+id/units_tv">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -105,14 +92,14 @@
                         android:id="@+id/metric_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="99dp"
+                        android:layout_marginEnd="50dp"
                         android:text="@string/metric" />
 
                     <RadioButton
                         android:id="@+id/standard_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="30dp"
+                        android:layout_marginEnd="50dp"
                         android:text="@string/standard" />
 
                     <RadioButton
@@ -126,25 +113,26 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/location_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/location"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/guideline20"
-            app:layout_constraintEnd_toStartOf="@+id/guideline15"
-            app:layout_constraintStart_toStartOf="@+id/guideline14"
-            app:layout_constraintTop_toTopOf="@+id/guideline19" />
+            app:layout_constraintEnd_toStartOf="@+id/settings_gl_end"
+            app:layout_constraintStart_toStartOf="@+id/settings_gl_start"
+            app:layout_constraintTop_toTopOf="@+id/location_guideline" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+            android:id="@+id/location_settings_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:cardCornerRadius="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline15"
-            app:layout_constraintStart_toStartOf="@+id/guideline14"
-            app:layout_constraintTop_toTopOf="@+id/guideline20">
+            app:layout_constraintEnd_toStartOf="@+id/settings_gl_end"
+            app:layout_constraintStart_toStartOf="@+id/settings_gl_start"
+            app:layout_constraintTop_toBottomOf="@+id/location_tv">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -164,19 +152,77 @@
                         android:id="@+id/map_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="30dp"
+                        android:layout_marginEnd="50dp"
                         android:text="@string/select_on_map" />
 
                     <RadioButton
                         android:id="@+id/gps_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:text="@string/gps" />
 
                 </RadioGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/language_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/language"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/settings_gl_end"
+            app:layout_constraintStart_toStartOf="@+id/settings_gl_start"
+            app:layout_constraintTop_toTopOf="@+id/language_guideline" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/language_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="240dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/settings_gl_end"
+            app:layout_constraintStart_toStartOf="@+id/settings_gl_start"
+            app:layout_constraintTop_toBottomOf="@+id/language_tv">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioGroup
+                    android:id="@+id/language_group"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/english_radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="50dp"
+                        android:text="@string/english" />
+
+                    <RadioButton
+                        android:id="@+id/arabic_radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/arabic" />
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -70,7 +70,7 @@ data class OfflineDataModel(
 
     private fun getTimeText(sunTime: Long): String {
         val dtf =
-            DateTimeFormatter.ofPattern("h:mm a").withLocale(Locale(SkywiseSettings.language()))
+            DateTimeFormatter.ofPattern("h:mm a").withLocale(Locale(SkywiseSettings.lang))
         return Instant.ofEpochSecond(sunTime).atZone(ZoneId.systemDefault()).format(dtf)
     }
 }

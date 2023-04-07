@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.skywise.R
 import com.example.skywise.data.FavoriteLocation
 import com.example.skywise.data.Repository
+import com.example.skywise.settingsscreen.SkywiseSettings
 import com.example.skywise.utils.GeocoderUtil
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -29,5 +30,11 @@ class MapSheetViewModel(val repository: Repository) : ViewModel() {
             )
             _snackBarText.emit(R.string.location_saved)
         }
+    }
+
+    fun updateLocation(iGeoPoint: IGeoPoint) {
+        SkywiseSettings.setLatitude(iGeoPoint.latitude)
+        SkywiseSettings.setLongitude(iGeoPoint.longitude)
+        SkywiseSettings.requiresLocation = false
     }
 }

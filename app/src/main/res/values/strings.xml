@@ -51,4 +51,6 @@
     <string name="select_on_map">Select On Map</string>
     <string name="gps">GPS</string>
     <string name="offline_message">you\'re currently offline!</string>
+    <string name="english">English</string>
+    <string name="arabic">العربية</string>
 </resources>

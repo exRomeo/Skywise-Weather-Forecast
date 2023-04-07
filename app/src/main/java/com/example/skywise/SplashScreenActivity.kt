@@ -21,16 +21,21 @@ class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash_screen)
-        supportActionBar?.hide()
+
+
         SkywiseSettings.initialize(
             this.applicationContext.getSharedPreferences(
                 "settings",
                 Context.MODE_PRIVATE
             )
         )
+
+        SkywiseSettings.updateLocale(this)
         ConnectionUtils.initialize(this.applicationContext.getSystemService(ConnectivityManager::class.java))
-        GeocoderUtil.initialize(Geocoder(this.applicationContext, Locale.getDefault()))
+        GeocoderUtil.initialize(Geocoder(this.applicationContext, Locale(SkywiseSettings.lang)))
+
+        setContentView(R.layout.activity_splash_screen)
+        supportActionBar?.hide()
         lifecycleScope.launch(Dispatchers.Main) {
             delay(1000)
             startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))

@@ -2,10 +2,10 @@ package com.example.skywise.favoritelocations
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.skywise.API_KEY
 import com.example.skywise.data.FavoriteLocation
 import com.example.skywise.data.Repository
 import com.example.skywise.data.WeatherData
+import com.example.skywise.data.remotesource.API_KEY
 import com.example.skywise.settingsscreen.SkywiseSettings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,7 +32,7 @@ class FavoriteLocationsViewModel(val repository: Repository) : ViewModel() {
             repository.getLocationData(
                 favoriteLocation.lat,
                 favoriteLocation.lon,
-                SkywiseSettings.language(),
+                SkywiseSettings.lang,
                 SkywiseSettings.units,
                 listOf(
                     SkywiseSettings.MINUTELY,
