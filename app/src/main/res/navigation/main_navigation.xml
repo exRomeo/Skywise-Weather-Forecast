@@ -20,4 +20,9 @@
         android:name="com.example.skywise.settingsscreen.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/alertsFragment"
+        android:name="com.example.skywise.alertscreen.AlertsFragment"
+        android:label="@string/alerts"
+        tools:layout="@layout/fragment_alerts" />
 </navigation>

@@ -54,4 +54,20 @@
     <string name="offline_message">أنت غير متصل بالإنترنت</string>
     <string name="english">English</string>
     <string name="arabic">العربية</string>
+    <string name="alerts">التحذيرات</string>
+    <string name="min">الصغرى</string>
+    <string name="max">العظمى</string>
+    <string name="set_alarm">اضف تنبيه</string>
+    <string name="draw_over_other_apps">اظهار النوافذ فوق التطبيقات</string>
+    <string name="from">"من : "</string>
+    <string name="to">"إلى : "</string>
+    <string name="select_date">حدد التاريخ</string>
+    <string name="click_to_specify">أضغط للتحديد</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">إلغاء</string>
+    <string name="date_not_valid">تاريخ البداية او النهاية غير صحيح</string>
+    <string name="notification">إشعارات</string>
+    <string name="alert_dialog">نافذة تحذيرية</string>
+    <string name="weather_condition">حالة الطقس</string>
+    <string name="ok">حسناً</string>
 </resources>

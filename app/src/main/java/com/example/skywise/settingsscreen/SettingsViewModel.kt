@@ -8,7 +8,6 @@ import com.example.skywise.mapsheet.MapSheet
 
 class SettingsViewModel : ViewModel() {
 
-
     fun setUnits(units: String) {
         SkywiseSettings.setUnits(units)
     }
@@ -18,6 +17,15 @@ class SettingsViewModel : ViewModel() {
         SkywiseSettings.updateLocale(activity)
         activity.recreate()
     }
+
+    fun setLocationType(locationType: String) {
+        SkywiseSettings.setLocationType(locationType)
+    }
+
+    fun setAlertType(alertType: String) {
+        SkywiseSettings.setAlertType(alertType)
+    }
+
 
     fun showMap(supportFragmentManager: FragmentManager) {
         MapSheet().show(

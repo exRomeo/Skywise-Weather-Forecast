@@ -28,7 +28,7 @@ object GeocoderUtil {
                 " Governorate",
                 ""
             ) ?: ""
-        }, ${address?.countryCode ?: ""}"
+        }"/*, ${address?.countryCode ?: ""}*/
     }
 
 }

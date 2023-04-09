@@ -4,15 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.skywise.alertscreen.WeatherAlert
 import com.example.skywise.data.FavoriteLocation
 
-@Database(entities = [FavoriteLocation::class, OfflineDataModel::class], version = 1, exportSchema = false)
+@Database(entities = [FavoriteLocation::class, OfflineDataModel::class, WeatherAlert::class], version = 1, exportSchema = false)
 abstract class RoomClient : RoomDatabase() {
     abstract fun getDao(): SkywiseDao
 
+
     companion object {
         @Volatile
-        var INSTANCE: RoomClient? = null
+        private var INSTANCE: RoomClient? = null
 
         fun getInstance(context: Context): RoomClient {
             return INSTANCE ?: synchronized(this) {

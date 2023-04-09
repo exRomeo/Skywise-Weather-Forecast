@@ -1,4 +1,4 @@
-package com.example.skywise
+package com.example.skywise.utils
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

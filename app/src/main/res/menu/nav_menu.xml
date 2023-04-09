@@ -8,6 +8,7 @@
         <item
             android:id="@+id/weatherFragment"
             android:title="@string/weather" />
+
         <item
             android:id="@+id/favoriteLocationsFragment"
             android:title="@string/favorites" />
@@ -15,5 +16,10 @@
         <item
             android:id="@+id/settingsFragment"
             android:title="@string/settings" />
+
+        <item
+            android:id="@+id/alertsFragment"
+            android:title="@string/alerts" />
+
     </group>
 </menu>

@@ -26,6 +26,10 @@ object SkywiseSettings {
     const val SMALL = ".png"
     const val MEDIUM = "@2x.png"
     const val LARGE = "@4x.png"
+    const val NOTIFICATION = "notification"
+    const val ALERT = "alert"
+    const val GPS = "gps"
+    const val MAP = "map"
 
     var requiresLocation = false
 
@@ -38,6 +42,10 @@ object SkywiseSettings {
     var units: String = METRIC
         private set
     var lang: String = Locale.getDefault().language
+        private set
+    var alertType: String = NOTIFICATION
+        private set
+    var locationType: String = GPS
         private set
 
     fun initialize(sharedPreferences: SharedPreferences) {
@@ -62,12 +70,13 @@ object SkywiseSettings {
     }
 
     fun setLocation(location: Location) {
+        Log.i(TAG, "setLocation: ${location.latitude}, ${location.longitude}")
         setLatitude(location.latitude)
         setLongitude(location.longitude)
     }
 
     fun isFirstLaunch(): Boolean {
-        return sharedPreferences.getBoolean("isFirstTime", false)
+        return /*sharedPreferences.getBoolean("isFirstTime", false)*/ true
     }
 
     fun doneFirstLaunch() {
@@ -83,11 +92,22 @@ object SkywiseSettings {
         return LocalDate.now().toString()
     }
 
+    fun setAlertType(alertType: String) {
+        this.alertType = alertType
+        sharedPreferences.edit().putString("alert_type", alertType).apply()
+    }
+
+    fun setLocationType(locationType: String) {
+        sharedPreferences.edit().putString("location_type", locationType).apply()
+    }
+
     private fun readPrefs() {
         lat = (sharedPreferences.getString("lat", "0.0"))?.toDouble() ?: 0.0
         lon = (sharedPreferences.getString("lon", "0.0"))?.toDouble() ?: 0.0
         units = sharedPreferences.getString("units", units).toString()
         lang = sharedPreferences.getString("language", lang).toString()
+        alertType = sharedPreferences.getString("alert_type", alertType).toString()
+        locationType = sharedPreferences.getString("location_type", locationType).toString()
     }
 
     @Suppress("DEPRECATION")
@@ -97,8 +117,7 @@ object SkywiseSettings {
         val config = Configuration()
         config.setLocale(local)
         activity.baseContext.resources.updateConfiguration(
-            config,
-            activity.baseContext.resources.displayMetrics
+            config, activity.baseContext.resources.displayMetrics
         )
 
         val layoutDirection =

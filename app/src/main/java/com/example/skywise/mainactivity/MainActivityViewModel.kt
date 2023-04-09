@@ -1,4 +1,4 @@
-package com.example.skywise
+package com.example.skywise.mainactivity
 
 import androidx.lifecycle.ViewModel
 

@@ -1,23 +1,19 @@
-package com.example.skywise
+package com.example.skywise.mainactivity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.skywise.R
 import com.example.skywise.databinding.ActivityMainBinding
-import com.example.skywise.settingsscreen.SkywiseSettings
-import com.example.skywise.utils.LocationUtils
 import com.google.android.material.navigation.NavigationView
-import kotlinx.coroutines.flow.collectLatest
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -30,16 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         supportActionBar?.hide()
-
-        lifecycleScope.launchWhenStarted {
-            LocationUtils.getCurrentLocation(this@MainActivity, lifecycleScope).collectLatest {
-                SkywiseSettings.setLocation(it)
-                Log.i(
-                    "TAG",
-                    "Read Location -> lat: ${SkywiseSettings.lat}, lon: ${SkywiseSettings.lon}"
-                )
-            }
-        }
 
         binding.lifecycleOwner = this
 
@@ -59,5 +45,4 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
 }

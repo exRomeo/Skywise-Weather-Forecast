@@ -1,9 +1,7 @@
 package com.example.skywise.data.localsource
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Query
-import androidx.room.Upsert
+import androidx.room.*
+import com.example.skywise.alertscreen.WeatherAlert
 import com.example.skywise.data.FavoriteLocation
 import com.example.skywise.data.WeatherData
 import kotlinx.coroutines.flow.Flow
@@ -24,4 +22,16 @@ interface SkywiseDao {
 
     @Delete
     suspend fun removeLocation(location: FavoriteLocation)
+
+    @Query("SELECT * FROM weather_alerts")
+    fun getAllWeatherAlerts(): Flow<List<WeatherAlert>>
+
+    @Insert
+    suspend fun addWeatherAlert(alert: WeatherAlert):Long
+
+    @Query("DELETE FROM weather_alerts WHERE id = :id")
+    suspend fun removeAlert(id: Int)
+
+    @Query("SELECT * FROM weather_alerts WHERE id = :id")
+    suspend fun getWeatherAlert(id: Int): WeatherAlert
 }

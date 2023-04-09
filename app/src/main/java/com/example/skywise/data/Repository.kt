@@ -1,11 +1,14 @@
 package com.example.skywise.data
 
 import android.util.Log
+import com.example.skywise.alertscreen.WeatherAlert
 import com.example.skywise.data.localsource.OfflineDataModel
 import com.example.skywise.data.localsource.RoomClient
+import com.example.skywise.data.remotesource.API_KEY
 import com.example.skywise.data.remotesource.RetrofitClient
 import com.example.skywise.settingsscreen.SkywiseSettings
 import com.example.skywise.utils.DataUtils
+import com.example.skywise.utils.GeocoderUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -15,28 +18,28 @@ import kotlinx.coroutines.launch
 class Repository(
     private val retrofit: RetrofitClient, private val room: RoomClient
 ) {
-    val TAG = "Repository"
+    private val TAG = "Repository"
     private val dao by lazy { room.getDao() }
     private val api by lazy { retrofit.api }
 
     suspend fun getOfflineData(): OfflineDataModel {
-        return dao.getOfflineData(SkywiseSettings.currentDate()) ?: OfflineDataModel(0.0, 0.0)
+        return this.dao.getOfflineData(SkywiseSettings.currentDate()) ?: OfflineDataModel(0.0, 0.0)
     }
 
     suspend fun addOfflineData(offlineDataModel: OfflineDataModel) {
-        dao.addOfflineData(offlineDataModel)
+        this.dao.addOfflineData(offlineDataModel)
     }
 
     fun getFavoriteLocations(): Flow<List<FavoriteLocation>> {
-        return dao.getFavoriteLocations()
+        return this.dao.getFavoriteLocations()
     }
 
     suspend fun addLocation(location: FavoriteLocation) {
-        dao.addLocation(location)
+        this.dao.addLocation(location)
     }
 
     suspend fun removeLocation(location: FavoriteLocation) {
-        dao.removeLocation(location)
+        this.dao.removeLocation(location)
     }
 
 
@@ -53,14 +56,27 @@ class Repository(
                 lat, lon, language, units, exclude, apiKey
             )
             Log.i(TAG, "getLocationData: units $units")
+            Log.i(TAG, "getLocationData: units $lat  $lon")
             if (response.isSuccessful && response.body() != null) {
                 val weatherData = response.body()!!
+                weatherData.area = GeocoderUtil.getLocationName(lat, lon)
                 saveToDatabase(weatherData)
                 emit(weatherData)
             } else throw Exception("Couldn't Fetch Data !")
         }
     }
 
+    suspend fun getPeriodic(): WeatherData {
+
+        val weatherData = api.oneCall(
+            SkywiseSettings.lat, SkywiseSettings.lon, SkywiseSettings.lang, SkywiseSettings.units,
+            listOf(SkywiseSettings.MINUTELY, SkywiseSettings.HOURLY), API_KEY
+        ).body()!!
+
+        weatherData.area = GeocoderUtil.getLocationName(SkywiseSettings.lat, SkywiseSettings.lon)
+
+        return weatherData
+    }
 
     private fun saveToDatabase(weatherData: WeatherData) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -70,5 +86,21 @@ class Repository(
                 )
             )
         }
+    }
+
+    fun getAllAlerts(): Flow<List<WeatherAlert>> {
+        return this.dao.getAllWeatherAlerts()
+    }
+
+    suspend fun addWeatherAlert(alert: WeatherAlert):Long {
+        return this.dao.addWeatherAlert(alert)
+    }
+
+    suspend fun removeAlert(weatherAlert: WeatherAlert) {
+        this.dao.removeAlert(weatherAlert.id)
+    }
+
+    suspend fun getAlertByID(id: Int): WeatherAlert {
+        return this.dao.getWeatherAlert(id)
     }
 }
