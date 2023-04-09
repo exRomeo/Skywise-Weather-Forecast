@@ -92,13 +92,18 @@ class Repository(
         return this.dao.getAllWeatherAlerts()
     }
 
-    suspend fun addWeatherAlert(alert: WeatherAlert):Long {
+    suspend fun addWeatherAlert(alert: WeatherAlert): Long {
         return this.dao.addWeatherAlert(alert)
     }
 
     suspend fun removeAlert(weatherAlert: WeatherAlert) {
         this.dao.removeAlert(weatherAlert.id)
     }
+
+    suspend fun removeAlertByID(id: Int) {
+        this.dao.removeAlert(id)
+    }
+
 
     suspend fun getAlertByID(id: Int): WeatherAlert {
         return this.dao.getWeatherAlert(id)

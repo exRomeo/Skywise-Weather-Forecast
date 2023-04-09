@@ -1,6 +1,5 @@
 package com.example.skywise.favoritelocations
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +47,7 @@ class FavoriteLocationsAdapter(val viewModel: FavoriteLocationsViewModel) :
                 if (::job.isInitialized)
                     job.cancel()
                 job = CoroutineScope(Dispatchers.Main).launch {
-                    viewModel.shownLocation.debounce(150).collectLatest() {
+                    viewModel.shownLocation.debounce(150).collectLatest {
                         previous = selected
                         selected = position
                         notifyItemChanged(position)

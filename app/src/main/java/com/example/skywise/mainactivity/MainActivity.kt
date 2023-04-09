@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navView: NavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (SkywiseSettings.locationType == GPS)
+        if (LocationUtils.isLocationEnabled() && SkywiseSettings.locationType == GPS)
             LocationUtils.getCurrentLocation()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         supportActionBar?.hide()

@@ -22,13 +22,25 @@ data class WeatherAlert(
 ) {
     private fun getTime(time: Long): String {
         val dtf =
-            DateTimeFormatter.ofPattern("h:mm a yyyy/MM/dd")
+            DateTimeFormatter.ofPattern("h:mm a")
                 .withLocale(Locale(SkywiseSettings.lang))
 
         return Instant.ofEpochSecond(time / 1000).atZone(ZoneId.systemDefault())
             .format(dtf)
     }
 
+    private fun getDay(time: Long): String {
+        val dtf =
+            DateTimeFormatter.ofPattern("EEE, MM/dd")
+                .withLocale(Locale(SkywiseSettings.lang))
+
+        return Instant.ofEpochSecond(time / 1000).atZone(ZoneId.systemDefault())
+            .format(dtf)
+    }
+
+    fun getStartDay(): String = startDate?.let { getDay(it) } ?: "N/A"
+
+    fun getEndDay(): String = endDate?.let { getDay(it) } ?: "N/A"
     fun getStart(): String = startDate?.let { getTime(it) } ?: "N/A"
     fun getEnd(): String = endDate?.let { getTime(it) } ?: "N/A"
 }

@@ -76,11 +76,11 @@ object SkywiseSettings {
     }
 
     fun isFirstLaunch(): Boolean {
-        return /*sharedPreferences.getBoolean("isFirstTime", false)*/ true
+        return sharedPreferences.getBoolean("isFirstTime", true)
     }
 
     fun doneFirstLaunch() {
-        sharedPreferences.edit().putBoolean("isFirstTime", true).apply()
+        sharedPreferences.edit().putBoolean("isFirstTime", false).apply()
     }
 
     fun setLang(language: String) {

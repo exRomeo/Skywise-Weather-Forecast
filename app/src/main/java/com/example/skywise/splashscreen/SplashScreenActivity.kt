@@ -4,10 +4,13 @@ import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.provider.Settings
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.skywise.R
@@ -35,8 +38,11 @@ class SplashScreenActivity : AppCompatActivity() {
             )
         )
         LocationUtils.initialize(this.applicationContext.getSystemService(LocationManager::class.java))
-        //LocationUtils.requestLocationPermissions(this)
 
+        if (LocationUtils.isLocationPermissionGranted(this))
+            startNavigation()
+        else
+            LocationUtils.requestLocationPermissions(this)
 
         SkywiseSettings.updateLocale(this)
 
@@ -48,17 +54,34 @@ class SplashScreenActivity : AppCompatActivity() {
         //loading splash screen animation
         setContentView(R.layout.activity_splash_screen)
         supportActionBar?.hide()
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LocationUtils.LOCATION_PERMISSIONS_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            LocationUtils.getCurrentLocation()
+        else {
+            Toast.makeText(this, "need location perms", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+        }
+        startNavigation()
+
+    }
+
+    fun startNavigation() {
         lifecycleScope.launch(Dispatchers.Main) {
             delay(1000)
             if (SkywiseSettings.isFirstLaunch()) {
                 startActivity(Intent(this@SplashScreenActivity, OnboardingActivity::class.java))
             } else {
                 startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
-
             }
             finish()
         }
     }
-
-
 }

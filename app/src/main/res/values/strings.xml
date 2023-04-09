@@ -78,4 +78,5 @@
     <string name="draw_over_other_apps_explaination">If you want to get notified with a pop you have to enable draw over other applications permission</string>
     <string name="all_done">All Done !</string>
     <string name="get_started">Lets Get Started !</string>
+    <string name="trun_on_location">Please Turn On Location In Settings</string>
 </resources>

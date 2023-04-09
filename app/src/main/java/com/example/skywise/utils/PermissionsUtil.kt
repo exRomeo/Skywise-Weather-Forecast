@@ -9,36 +9,13 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.example.skywise.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 object PermissionsUtil {
-    const val LOCATION_PERMISSIONS_REQUEST_CODE = 101
+
     const val NOTIFICATIONS_PERMISSION_REQUEST_CODE = 102
 
-
-    fun requestLocationPermissions(activity: Activity) {
-
-        if (ContextCompat.checkSelfPermission(
-                activity.applicationContext,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
-                activity.applicationContext,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                activity,
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ),
-                LOCATION_PERMISSIONS_REQUEST_CODE
-            )
-        }
-
-    }
 
     fun requestNotificationsPermission(activity: Activity) {
         if (ActivityCompat.checkSelfPermission(

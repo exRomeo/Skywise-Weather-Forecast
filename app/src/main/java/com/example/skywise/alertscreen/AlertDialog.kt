@@ -99,7 +99,8 @@ class AlertDialog : DialogFragment(), DatePickerDialog.OnDateSetListener,
         }
         lifecycleScope.launch {
             viewModel.alertID.collectLatest {
-                setPeriodicWorkManager(it)
+//                setPeriodicWorkManager(it)
+                makeWork(it)
             }
         }
     }
@@ -187,4 +188,24 @@ class AlertDialog : DialogFragment(), DatePickerDialog.OnDateSetListener,
             periodicWorkRequest
         )
     }
+
+    private fun makeWork(id: Long) {
+        val constraints = Constraints.Builder()
+            .setRequiresBatteryNotLow(true)
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val data = Data.Builder().putString("id", id.toString()).build()
+        val workRequest = OneTimeWorkRequestBuilder<NotificationAlertWorker>()
+            .setConstraints(constraints)
+            .setInitialDelay(
+                endDate - System.currentTimeMillis(),
+                TimeUnit.MILLISECONDS
+            )
+            .addTag(id.toString()).setInputData(data)
+            .build()
+
+        WorkManager.getInstance(this.requireContext())
+            .enqueueUniqueWork(id.toString(), ExistingWorkPolicy.REPLACE, workRequest)
+    }
+
 }

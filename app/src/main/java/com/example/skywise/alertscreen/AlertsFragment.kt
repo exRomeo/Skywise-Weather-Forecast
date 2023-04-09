@@ -81,6 +81,7 @@ class AlertsFragment : Fragment() {
         ContextCompat.startForegroundService(requireContext(), intent)
     }
 
+
 }
 
 

@@ -27,17 +27,16 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/location_name_tv"
+                android:id="@+id/start_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="92dp"
-                android:text="@{weatherAlert.area}"
+                android:text="@{weatherAlert.getStartDay()}"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@id/alert_start_tv"
-                app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+                app:layout_constraintEnd_toEndOf="@+id/alert_start_tv"
                 app:layout_constraintStart_toStartOf="@+id/start_guideline"
                 app:layout_constraintTop_toTopOf="@+id/home_guideline"
-                tools:text="@string/location_area" />
+                tools:text="@string/sample_date" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/end_guideline"
@@ -72,27 +71,25 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:gravity="center"
                 android:text="@{weatherAlert.getStart()}"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
                 app:layout_constraintEnd_toStartOf="@id/alert_end_tv"
                 app:layout_constraintStart_toStartOf="@+id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@+id/location_name_tv"
-                tools:text="7:30pm 28/10/2023" />
+                app:layout_constraintTop_toBottomOf="@+id/start_tv"
+                tools:text="7:30pm" />
 
             <TextView
                 android:id="@+id/alert_end_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="@{weatherAlert.getEnd()}"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/alert_start_tv"
                 app:layout_constraintEnd_toStartOf="@+id/end_guideline"
                 app:layout_constraintStart_toEndOf="@+id/alert_start_tv"
                 app:layout_constraintTop_toTopOf="@+id/alert_start_tv"
-                tools:text="12:30am 29/10/2023" />
+                tools:text="12:30am" />
 
             <ImageButton
                 android:id="@+id/remove_alert_button"
@@ -100,9 +97,21 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/circle"
                 android:src="@drawable/remove"
-                app:layout_constraintBottom_toBottomOf="@+id/location_name_tv"
+                app:layout_constraintBottom_toBottomOf="@+id/start_tv"
                 app:layout_constraintEnd_toStartOf="@+id/end_guideline"
-                app:layout_constraintTop_toTopOf="@+id/location_name_tv" />
+                app:layout_constraintTop_toTopOf="@+id/start_tv" />
+
+            <TextView
+                android:id="@+id/end_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{weatherAlert.getEndDay()}"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/start_tv"
+                app:layout_constraintEnd_toStartOf="@+id/remove_alert_button"
+                app:layout_constraintStart_toEndOf="@+id/alert_start_tv"
+                app:layout_constraintTop_toTopOf="@+id/home_guideline"
+                tools:text="@string/sample_date" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

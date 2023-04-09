@@ -79,4 +79,5 @@
     <string name="draw_over_other_apps_explaination">اذا اردت ان تصلك اخر اخبار الطق في نافذة منبثقة يجب عليك تفعيل صلاحية اظهار النوافذ المنبثقة</string>
     <string name="all_done">تم الإنتهاء !</string>
     <string name="get_started">فلنبدأ !</string>
+    <string name="trun_on_location">يرجي تشغيل خدمة تحديد المواقع من الاعدادات</string>
 </resources>

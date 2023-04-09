@@ -3,7 +3,6 @@ package com.example.skywise.utils
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.os.Vibrator
 import androidx.core.app.NotificationCompat
 import com.example.skywise.alertscreen.AlertService
 import com.example.skywise.mainactivity.MainActivity
@@ -11,7 +10,7 @@ import com.example.skywise.mainactivity.MainActivity
 object NotificationUtils {
 
     const val CHANNEL_ID = "22"
-    private lateinit var notificationManager: NotificationManager
+    lateinit var notificationManager: NotificationManager
 
     fun initialize(notificationManager: NotificationManager) {
         this.notificationManager = notificationManager

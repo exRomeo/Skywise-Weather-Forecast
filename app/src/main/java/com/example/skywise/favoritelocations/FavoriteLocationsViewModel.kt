@@ -20,7 +20,7 @@ class FavoriteLocationsViewModel(val repository: Repository) : ViewModel() {
     val shownLocation = _shownLocation.asStateFlow()
     fun getFavoriteLocations() {
         viewModelScope.launch {
-            repository.getFavoriteLocations().collect() {
+            repository.getFavoriteLocations().collect {
                 _favoriteLocations.value = it
             }
         }
@@ -39,7 +39,7 @@ class FavoriteLocationsViewModel(val repository: Repository) : ViewModel() {
                     SkywiseSettings.HOURLY
                 ),
                 API_KEY
-            ).collect() {
+            ).collect {
                 _shownLocation.value = it
             }
         }

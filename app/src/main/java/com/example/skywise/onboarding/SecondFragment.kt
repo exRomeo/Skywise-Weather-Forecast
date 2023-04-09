@@ -1,9 +1,12 @@
 package com.example.skywise.onboarding
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.skywise.R
@@ -36,12 +39,21 @@ class SecondFragment : Fragment() {
                     SkywiseSettings.setLocationType(MAP)
                 }
                 R.id.gps_rb -> {
-                    LocationUtils.requestLocationPermissions(this.requireActivity())
-                    LocationUtils.getCurrentLocation()
-                    SkywiseSettings.setLocationType(GPS)
+                    if (LocationUtils.isLocationEnabled()) {
+                        LocationUtils.getCurrentLocation()
+                        SkywiseSettings.setLocationType(GPS)
+                    } else {
+                        Toast.makeText(
+                            this.requireContext(),
+                            "Turn on Location",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                    }
                 }
             }
         }
     }
+
 
 }

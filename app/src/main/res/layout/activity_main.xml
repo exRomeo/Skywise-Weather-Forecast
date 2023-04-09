@@ -5,9 +5,6 @@
 
     <data>
 
-        <variable
-            name="viewModel"
-            type="com.example.skywise.mainactivity.MainActivityViewModel" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout

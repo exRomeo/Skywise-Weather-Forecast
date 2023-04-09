@@ -38,9 +38,7 @@ class WeatherViewModel(private val repository: Repository) : ViewModel() {
 
                     _weatherDTO.value = WeatherDTO.Failure(it)
                     _snackBarText.emit(R.string.data_not_retrieved)
-
                 }.collectLatest {
-
                     _weatherDTO.value = WeatherDTO.SuccessOnline(it)
 
                 }
