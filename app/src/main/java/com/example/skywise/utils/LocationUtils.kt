@@ -10,7 +10,7 @@ import com.example.skywise.settingsscreen.SkywiseSettings
 
 object LocationUtils {
 
-    private lateinit var locationManager: LocationManager;
+    private lateinit var locationManager: LocationManager
 
     fun initialize(locationManager: LocationManager) {
         this.locationManager = locationManager
@@ -28,7 +28,6 @@ object LocationUtils {
         }
     }
 
-//    val locationListener = LocationListener { SkywiseSettings.setLocation(location = it) }
 
     fun requestLocationPermissions(activity: Activity) {
 

@@ -22,17 +22,17 @@ object PermissionsUtil {
 
         if (ContextCompat.checkSelfPermission(
                 activity.applicationContext,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
                 activity.applicationContext,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
                 activity,
                 arrayOf(
-                    android.Manifest.permission.ACCESS_FINE_LOCATION,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
                 ),
                 LOCATION_PERMISSIONS_REQUEST_CODE
             )
@@ -54,23 +54,24 @@ object PermissionsUtil {
     }
 
 
-    fun checkOverlayPermission(activity: Activity,context: Context) {
+    fun checkOverlayPermission(activity: Activity, context: Context) {
         if (!Settings.canDrawOverlays(context)) {
             val alertDialogBuilder = MaterialAlertDialogBuilder(context)
             alertDialogBuilder.setTitle(R.string.draw_over_other_apps)
-                .setMessage("you should let us draw over other apps if you know whats good for you!")
-                .setPositiveButton("Yes sir!") { dialog: DialogInterface, _ ->
+                .setMessage(R.string.draw_over_other_apps_explaination)
+                .setPositiveButton(R.string.ok) { dialog: DialogInterface, _ ->
                     val intent = Intent(
                         Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                        Uri.parse("package:" + activity.applicationContext.packageName)
+                        Uri.parse("package: " + activity.applicationContext.packageName)
                     )
                     activity.startActivityForResult(intent, 1)
                     dialog.dismiss()
-                }.setNegativeButton("No!!!") { dialog: DialogInterface, _ -> dialog.dismiss() }
+                }
+                .setNegativeButton(R.string.cancel) { dialog: DialogInterface, _ -> dialog.dismiss() }
                 .show()
+
         }
     }
-
 
 
 }

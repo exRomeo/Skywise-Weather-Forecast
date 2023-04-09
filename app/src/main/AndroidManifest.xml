@@ -15,7 +15,6 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -26,6 +25,10 @@
         android:theme="@style/Theme.Skywise"
         tools:replace="android:allowBackup"
         tools:targetApi="31">
+        <activity
+            android:name=".onboarding.OnboardingActivity"
+            android:noHistory="true"
+            android:exported="true" />
 
         <service
             android:name=".alertscreen.AlertService"
@@ -43,7 +46,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".mainactivity.MainActivity"
             android:exported="true" />

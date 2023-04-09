@@ -39,12 +39,12 @@ class AlertWindowManager(private val context: Context, private val weatherData: 
         windowManager.addView(binding.root, parameters)
     }
 
-    fun close() {
+    private fun close() {
         windowManager.removeView(binding.root)
         binding.root.invalidate()
     }
 
-    fun endService() {
+    private fun endService() {
         context.stopService(Intent(context, AlertService::class.java))
     }
 }

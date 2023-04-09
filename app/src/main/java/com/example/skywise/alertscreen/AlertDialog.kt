@@ -169,7 +169,7 @@ class AlertDialog : DialogFragment(), DatePickerDialog.OnDateSetListener,
 
 
     private fun isValidDate(): Boolean {
-        return /*startDate in (currentDate + 1) until (endDate - 60 * 60 * 1000)*/ true
+        return startDate in (currentDate + 1) until (endDate /*- 60 * 60 * 1000*/)
     }
 
     private fun setPeriodicWorkManager(id: Long) {

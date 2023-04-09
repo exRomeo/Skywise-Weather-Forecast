@@ -13,8 +13,7 @@ data class WeatherAlert(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     //Date in Milli Seconds
-//    var startTime: Long? = null,
-//    var endTime: Long? = null,
+
     var startDate: Long? = null,
     var endDate: Long? = null,
     var lat: Double? = null,
@@ -30,6 +29,6 @@ data class WeatherAlert(
             .format(dtf)
     }
 
-    fun getStart():String = startDate?.let { getTime(it) } ?: "N/A"
-    fun getEnd():String = endDate?.let { getTime(it) } ?: "N/A"
+    fun getStart(): String = startDate?.let { getTime(it) } ?: "N/A"
+    fun getEnd(): String = endDate?.let { getTime(it) } ?: "N/A"
 }

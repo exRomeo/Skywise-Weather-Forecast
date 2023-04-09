@@ -16,6 +16,8 @@ import com.example.skywise.data.Repository
 import com.example.skywise.data.localsource.RoomClient
 import com.example.skywise.data.remotesource.RetrofitClient
 import com.example.skywise.databinding.FragmentAlertsBinding
+import com.example.skywise.settingsscreen.SkywiseSettings
+import com.example.skywise.settingsscreen.SkywiseSettings.ALERT
 import com.example.skywise.utils.ConnectionUtils
 import com.example.skywise.utils.PermissionsUtil.checkOverlayPermission
 import kotlinx.coroutines.Dispatchers
@@ -64,7 +66,8 @@ class AlertsFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
         }
-        checkOverlayPermission(this.requireActivity(), requireContext())
+        if (SkywiseSettings.alertType == ALERT)
+            checkOverlayPermission(this.requireActivity(), requireContext())
     }
 
 

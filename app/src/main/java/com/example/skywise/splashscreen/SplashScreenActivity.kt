@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.skywise.R
 import com.example.skywise.mainactivity.MainActivity
+import com.example.skywise.onboarding.OnboardingActivity
 import com.example.skywise.settingsscreen.SkywiseSettings
 import com.example.skywise.utils.*
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +27,7 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-//initializing util classes
+        //initializing util classes
         SkywiseSettings.initialize(
             this.applicationContext.getSharedPreferences(
                 "settings",
@@ -34,8 +35,8 @@ class SplashScreenActivity : AppCompatActivity() {
             )
         )
         LocationUtils.initialize(this.applicationContext.getSystemService(LocationManager::class.java))
-        LocationUtils.requestLocationPermissions(this)
-        LocationUtils.getCurrentLocation()
+        //LocationUtils.requestLocationPermissions(this)
+
 
         SkywiseSettings.updateLocale(this)
 
@@ -44,18 +45,17 @@ class SplashScreenActivity : AppCompatActivity() {
         NotificationUtils.initialize(this.applicationContext.getSystemService(NotificationManager::class.java))
 
         GeocoderUtil.initialize(Geocoder(this.applicationContext, Locale(SkywiseSettings.lang)))
-//loading splash screen animation
+        //loading splash screen animation
         setContentView(R.layout.activity_splash_screen)
         supportActionBar?.hide()
         lifecycleScope.launch(Dispatchers.Main) {
             delay(1000)
-//            if (SkywiseSettings.isFirstLaunch()) {
+            if (SkywiseSettings.isFirstLaunch()) {
+                startActivity(Intent(this@SplashScreenActivity, OnboardingActivity::class.java))
+            } else {
                 startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
-//            }
-//            else {
 
-                /* startActivity(Intent(this@SplashScreenActivity, OnboardingActivity::class.java))*/
-//            }
+            }
             finish()
         }
     }

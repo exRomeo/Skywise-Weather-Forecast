@@ -20,10 +20,9 @@ class AlertService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
         val data = intent?.getStringExtra("Stringayte") ?: "N/A"
-//        if (SkywiseSettings.alertType == NOTIFICATION) {
 
         this.startForeground(
-            4,
+            187,
             NotificationUtils.makeNotification(
                 this,
                 R.drawable.skywise_dark,
@@ -31,7 +30,7 @@ class AlertService : Service() {
                 data, NotificationCompat.PRIORITY_DEFAULT
             )
         )
-//        }
+
         if (SkywiseSettings.alertType == ALERT) {
             alertWindowManager = AlertWindowManager(
                 this,

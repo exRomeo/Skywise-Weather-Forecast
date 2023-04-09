@@ -68,5 +68,14 @@
     <string name="notification">Notification</string>
     <string name="alert_dialog">Alert Dialog</string>
     <string name="weather_condition">Weather Condition</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
+    <string name="greeting">Welcome To Skywise Where You can Check On Weather Condition at AnyPlace Whenever Connected To The Internet</string>
+    <string name="swipe_to_continue">Swipe To Continue</string>
+    <string name="how_do_you_want_to_be_located">Tell us How Do You Want To Be Located</string>
+    <string name="locate_yourself_on_map">Locate Yourself On Map</string>
+    <string name="get_location_by_gps">Get Location By GPS</string>
+    <string name="how_do_you_want_to_get_informed">How Do You Want To Get Informed With The Latest Weather Details?</string>
+    <string name="draw_over_other_apps_explaination">If you want to get notified with a pop you have to enable draw over other applications permission</string>
+    <string name="all_done">All Done !</string>
+    <string name="get_started">Lets Get Started !</string>
 </resources>

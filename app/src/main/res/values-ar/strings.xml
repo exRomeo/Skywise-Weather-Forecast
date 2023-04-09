@@ -70,4 +70,13 @@
     <string name="alert_dialog">نافذة تحذيرية</string>
     <string name="weather_condition">حالة الطقس</string>
     <string name="ok">حسناً</string>
+    <string name="greeting">مرحبا بك في SkyWise الذي يتيح لك معرفة حالة الطقس في اي مكان طالما كنت متصل بالانترنت</string>
+    <string name="swipe_to_continue">إسحب للمتابعة</string>
+    <string name="how_do_you_want_to_be_located">أخبرنا كيف تريد تحديد موقعك</string>
+    <string name="locate_yourself_on_map">حدد على الخريطة</string>
+    <string name="get_location_by_gps">نظام تحديد المواقع</string>
+    <string name="how_do_you_want_to_get_informed">كيف تريد ان تصلك اخر اخبار الطقس ؟</string>
+    <string name="draw_over_other_apps_explaination">اذا اردت ان تصلك اخر اخبار الطق في نافذة منبثقة يجب عليك تفعيل صلاحية اظهار النوافذ المنبثقة</string>
+    <string name="all_done">تم الإنتهاء !</string>
+    <string name="get_started">فلنبدأ !</string>
 </resources>
