@@ -7,7 +7,9 @@ plugins {
 android {
     namespace 'com.example.skywise'
     compileSdk 33
-
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
     defaultConfig {
         applicationId "com.example.skywise"
         minSdk 28
@@ -49,7 +51,6 @@ dependencies {
     //OpenStreetMap
     implementation 'org.osmdroid:osmdroid-android:6.1.16'
     implementation 'org.osmdroid:osmdroid-mapsforge:6.1.16'
-    implementation 'org.osmdroid:osmdroid-geopackage:6.1.16'
 
     //WorkManager
     implementation 'androidx.work:work-runtime-ktx:2.8.1'
