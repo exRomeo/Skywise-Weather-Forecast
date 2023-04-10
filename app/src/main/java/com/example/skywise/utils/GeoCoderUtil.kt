@@ -11,24 +11,24 @@ object GeocoderUtil {
         this.geocoder = geocoder
     }
 
-    fun getAddress(lat: Double, lon: Double): Address? {
-        return geocoder.getFromLocation(lat, lon, 1)?.get(0)
-    }
-
     fun getLocationName(lat: Double, lon: Double): String {
-        val addresses = geocoder.getFromLocation(lat, lon, 1)
-        val address =
-            if (!addresses.isNullOrEmpty())
-                geocoder.getFromLocation(lat, lon, 1)?.get(0)
-            else
-                null
+        if (::geocoder.isInitialized) {
+            val addresses = geocoder.getFromLocation(lat, lon, 1)
 
-        return "${address?.locality ?: ""} ${
-            address?.adminArea?.replace(
-                " Governorate",
-                ""
-            ) ?: ""
-        }"/*, ${address?.countryCode ?: ""}*/
+            val address =
+                if (!addresses.isNullOrEmpty())
+                    geocoder.getFromLocation(lat, lon, 1)?.get(0)
+                else
+                    null
+
+
+            return "${address?.locality ?: ""} ${
+                address?.adminArea?.replace(
+                    " Governorate",
+                    ""
+                ) ?: ""
+            }"/*, ${address?.countryCode ?: ""}*/
+        } else return ""
     }
 
 }

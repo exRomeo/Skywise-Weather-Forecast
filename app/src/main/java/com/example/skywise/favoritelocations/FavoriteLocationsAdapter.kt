@@ -77,7 +77,7 @@ class FavoriteLocationsAdapter(val viewModel: FavoriteLocationsViewModel) :
 
 class LocationDiffUtil : DiffUtil.ItemCallback<FavoriteLocation>() {
     override fun areItemsTheSame(oldItem: FavoriteLocation, newItem: FavoriteLocation): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.lat == newItem.lat && oldItem.lon == newItem.lon
     }
 
     override fun areContentsTheSame(oldItem: FavoriteLocation, newItem: FavoriteLocation): Boolean {

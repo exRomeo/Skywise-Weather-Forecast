@@ -12,7 +12,7 @@ interface API {
         @Query("lon") lon: Double,
         @Query("lang") lang: String,
         @Query("units") unit:String,
-        @Query("exclude") exclude:List<String>,
+        @Query("exclude") exclude:String,
         @Query("appid") apiKey:String
     ): Response<WeatherData>
 }

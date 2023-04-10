@@ -34,10 +34,7 @@ class FavoriteLocationsViewModel(val repository: Repository) : ViewModel() {
                 favoriteLocation.lon,
                 SkywiseSettings.lang,
                 SkywiseSettings.units,
-                listOf(
-                    SkywiseSettings.MINUTELY,
-                    SkywiseSettings.HOURLY
-                ),
+                "${SkywiseSettings.MINUTELY},${SkywiseSettings.HOURLY}",
                 API_KEY
             ).collect {
                 _shownLocation.value = it

@@ -47,9 +47,9 @@ dependencies {
     implementation 'com.airbnb.android:lottie:6.0.0'
 
     //OpenStreetMap
-    implementation 'org.osmdroid:osmdroid-android:6.1.15'
-    implementation 'org.osmdroid:osmdroid-mapsforge:6.1.15'
-    implementation 'org.osmdroid:osmdroid-geopackage:6.1.15'
+    implementation 'org.osmdroid:osmdroid-android:6.1.16'
+    implementation 'org.osmdroid:osmdroid-mapsforge:6.1.16'
+    implementation 'org.osmdroid:osmdroid-geopackage:6.1.16'
 
     //WorkManager
     implementation 'androidx.work:work-runtime-ktx:2.8.1'
@@ -57,6 +57,7 @@ dependencies {
     //Room database
     implementation "androidx.room:room-ktx:2.5.1"
     implementation "androidx.room:room-runtime:2.5.1"
+
     kapt "androidx.room:room-compiler:2.5.1"
 
     //Retrofit
@@ -89,7 +90,34 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    //Testing
     testImplementation 'junit:junit:4.13.2'
+    testImplementation "androidx.test.ext:junit-ktx:1.1.5"
+    testImplementation "androidx.test:core-ktx:1.5.0"
+
+    //instrumented testing
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //Coroutines Testing
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
+
+    //ham crest
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    androidTestImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.hamcrest:hamcrest-library:2.2'
+    androidTestImplementation 'org.hamcrest:hamcrest-library:2.2'
+
+    //Robolectric
+    testImplementation "org.robolectric:robolectric:4.9.2"
+
+    // InstantTaskExecutorRule
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+    androidTestImplementation 'androidx.arch.core:core-testing:2.2.0'
+
+    // mockk
+    testImplementation 'io.mockk:mockk:1.13.4'
+
 }

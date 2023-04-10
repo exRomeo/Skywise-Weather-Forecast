@@ -7,6 +7,10 @@ import com.example.skywise.data.localsource.RoomClient
 import com.example.skywise.data.remotesource.API_KEY
 import com.example.skywise.data.remotesource.RetrofitClient
 import com.example.skywise.settingsscreen.SkywiseSettings
+import com.example.skywise.settingsscreen.SkywiseSettings.lang
+import com.example.skywise.settingsscreen.SkywiseSettings.lat
+import com.example.skywise.settingsscreen.SkywiseSettings.lon
+import com.example.skywise.settingsscreen.SkywiseSettings.units
 import com.example.skywise.utils.DataUtils
 import com.example.skywise.utils.GeocoderUtil
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +27,13 @@ class Repository(
     private val api by lazy { retrofit.api }
 
     suspend fun getOfflineData(): OfflineDataModel {
-        return this.dao.getOfflineData(SkywiseSettings.currentDate()) ?: OfflineDataModel(0.0, 0.0)
+        return this.dao.getOfflineData(SkywiseSettings.currentDate()) ?: OfflineDataModel(
+            0.0,
+            0.0,
+            description = "No Connection",
+            icon = "0",
+            area = "N/A"
+        )
     }
 
     suspend fun addOfflineData(offlineDataModel: OfflineDataModel) {
@@ -48,7 +58,7 @@ class Repository(
         lon: Double,
         language: String,
         units: String,
-        exclude: List<String>,
+        exclude: String,
         apiKey: String
     ): Flow<WeatherData> {
         return flow {
@@ -69,11 +79,11 @@ class Repository(
     suspend fun getPeriodic(): WeatherData {
 
         val weatherData = api.oneCall(
-            SkywiseSettings.lat, SkywiseSettings.lon, SkywiseSettings.lang, SkywiseSettings.units,
-            listOf(SkywiseSettings.MINUTELY, SkywiseSettings.HOURLY), API_KEY
+            lat, lon, lang, units,
+            "${SkywiseSettings.MINUTELY},${SkywiseSettings.HOURLY}", API_KEY
         ).body()!!
 
-        weatherData.area = GeocoderUtil.getLocationName(SkywiseSettings.lat, SkywiseSettings.lon)
+        weatherData.area = GeocoderUtil.getLocationName(lat, lon)
 
         return weatherData
     }
@@ -107,5 +117,11 @@ class Repository(
 
     suspend fun getAlertByID(id: Int): WeatherAlert {
         return this.dao.getWeatherAlert(id)
+    }
+
+    suspend fun clearDatabase() {
+        dao.clearOfflineData()
+        dao.clearFavoriteLocations()
+        dao.clearWeatherAlerts()
     }
 }

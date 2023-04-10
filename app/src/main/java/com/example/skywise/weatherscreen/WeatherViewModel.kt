@@ -32,7 +32,7 @@ class WeatherViewModel(private val repository: Repository) : ViewModel() {
                     SkywiseSettings.lon,
                     SkywiseSettings.lang,
                     SkywiseSettings.units,
-                    listOf(MINUTELY),
+                    MINUTELY,
                     API_KEY
                 ).catch {
 
