@@ -1,6 +1,5 @@
 package com.example.skywise.favoritelocations
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -68,6 +67,4 @@ class FavoriteLocationsFragment : Fragment() {
                     .show()
         }
     }
-
-
 }

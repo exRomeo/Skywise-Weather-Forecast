@@ -99,7 +99,6 @@ class AlertDialog : DialogFragment(), DatePickerDialog.OnDateSetListener,
         }
         lifecycleScope.launch {
             viewModel.alertID.collectLatest {
-//                setPeriodicWorkManager(it)
                 makeWork(it)
             }
         }

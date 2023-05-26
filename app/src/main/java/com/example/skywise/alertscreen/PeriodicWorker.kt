@@ -1,18 +1,17 @@
 package com.example.skywise.alertscreen
 
-import android.annotation.SuppressLint
 import android.content.Context
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.work.*
+import androidx.work.Constraints
+import androidx.work.CoroutineWorker
+import androidx.work.Data
+import androidx.work.ExistingWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
+import androidx.work.WorkerParameters
 import com.example.skywise.data.Repository
 import com.example.skywise.data.localsource.RoomClient
 import com.example.skywise.data.remotesource.RetrofitClient
-import com.example.skywise.utils.NotificationUtils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withContext
-import com.example.skywise.R
 import java.lang.System.currentTimeMillis
 import java.util.concurrent.TimeUnit
 
@@ -78,34 +77,4 @@ class PeriodicWorker(val context: Context, params: WorkerParameters) :
         )
 
     }
-   /* @SuppressLint("MissingPermission")
-    override suspend fun doWork(): Result {
-        val data = withContext(Dispatchers.IO) {
-            repository.getPeriodic()
-        }
-
-        // Build the notification
-        val notification = NotificationUtils.makeNotification(
-            applicationContext,
-            R.drawable.skywise_dark, data.area,
-            "${data.current.weather[0].description}\n${applicationContext.getString(R.string.min)} ${
-                data.daily?.get(
-                    0
-                )?.temp?.getMinText()
-            } ${applicationContext.getString(R.string.max)} ${
-                data.daily?.get(
-                    0
-                )?.temp?.getMaxText()
-            }", NotificationCompat.PRIORITY_HIGH
-        )
-
-        // Send the notification
-        val notificationManager = NotificationManagerCompat.from(applicationContext)
-        notificationManager.notify(
-            0, notification
-        )
-
-        // Indicate that the work was successful
-        return Result.success()
-    }*/
 }

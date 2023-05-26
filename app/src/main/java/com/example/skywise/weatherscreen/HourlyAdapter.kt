@@ -26,7 +26,6 @@ class HourlyAdapter : ListAdapter<Hourly, HourlyAdapter.ViewHolder>(HourlyDiffUt
 
     inner class ViewHolder(var binding: HourlyItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
-
 }
 
 class HourlyDiffUtil : DiffUtil.ItemCallback<Hourly>() {
