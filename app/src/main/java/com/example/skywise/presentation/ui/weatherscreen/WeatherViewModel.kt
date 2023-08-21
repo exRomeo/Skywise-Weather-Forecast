@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.skywise.R
 import com.example.skywise.data.repository.Repository
+import com.example.skywise.domain.location.LocationTracker
 import com.example.skywise.domain.settings.SkywiseSettings
 import com.example.skywise.domain.settings.SkywiseSettings.MINUTELY
 import com.example.skywise.domain.utils.ConnectionUtils
@@ -20,7 +21,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WeatherViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class WeatherViewModel @Inject constructor(
+    private val repository: Repository,
+    private val locationTracker: LocationTracker
+) : ViewModel() {
     private var _UIState = MutableStateFlow<UIState>(UIState.Loading)
     val weatherDTO = _UIState.asStateFlow()
 

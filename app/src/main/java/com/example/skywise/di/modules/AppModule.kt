@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.example.skywise.data.apiservices.WeatherApi
 import com.example.skywise.data.localsource.LocalSource
 import com.example.skywise.data.localsource.LocalSourceImpl
+import com.example.skywise.data.location.DefaultLocationTracker
 import com.example.skywise.data.remotesource.RemoteSource
 import com.example.skywise.data.remotesource.RemoteSourceImpl
 import com.example.skywise.data.repository.Repository
@@ -13,6 +14,9 @@ import com.example.skywise.data.roomdb.RoomClient
 import com.example.skywise.data.roomdb.WeatherDatabase
 import com.example.skywise.domain.constants.APIKEY
 import com.example.skywise.domain.constants.BASE_URL
+import com.example.skywise.domain.location.LocationTracker
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -60,6 +64,13 @@ abstract class AppModule {
                 RoomClient::class.java,
                 "skywise_database"
             ).build().getWeatherDatabase()
+
+
+        @Provides
+        @Singleton
+        fun provideFusedLocationProviderClient(application: Application): FusedLocationProviderClient {
+            return LocationServices.getFusedLocationProviderClient(application)
+        }
     }
 
 
@@ -77,4 +88,8 @@ abstract class AppModule {
     @Singleton
     abstract fun bindsLocalSource(localSource: LocalSourceImpl): LocalSource
 
+
+    @Binds
+    @Singleton
+    abstract fun bindsLocationTracker(defaultLocationTracker: DefaultLocationTracker): LocationTracker
 }
