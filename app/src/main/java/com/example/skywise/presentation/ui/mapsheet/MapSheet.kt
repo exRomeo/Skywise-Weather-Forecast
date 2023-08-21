@@ -20,7 +20,6 @@ import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 
 @AndroidEntryPoint
-
 class MapSheet : BottomSheetDialogFragment() {
 
     private lateinit var binding: MapSheetBinding

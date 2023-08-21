@@ -13,9 +13,11 @@ import com.example.skywise.databinding.FragmentFavoriteLocationsBinding
 import com.example.skywise.domain.utils.ConnectionUtils
 import com.example.skywise.presentation.ui.mapsheet.MapSheet
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class FavoriteLocationsFragment : Fragment() {
 
     private lateinit var binding: FragmentFavoriteLocationsBinding
