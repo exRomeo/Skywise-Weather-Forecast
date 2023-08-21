@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.example.skywise.favoritelocations.FavoriteLocationsViewModel" />
+            type="com.example.skywise.presentation.ui.favoritelocations.FavoriteLocationsViewModel" />
 
         <variable
             name="location"
-            type="com.example.skywise.data.FavoriteLocation" />
+            type="com.example.skywise.data.models.FavoriteLocation" />
 
 
     </data>

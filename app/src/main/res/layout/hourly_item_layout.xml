@@ -7,7 +7,7 @@
 
         <variable
             name="hourly"
-            type="com.example.skywise.data.Hourly" />
+            type="com.example.skywise.data.models.Hourly" />
     </data>
 
     <androidx.cardview.widget.CardView

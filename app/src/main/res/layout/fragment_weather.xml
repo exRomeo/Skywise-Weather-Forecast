@@ -7,19 +7,19 @@
 
         <variable
             name="viewModel"
-            type="com.example.skywise.weatherscreen.WeatherViewModel" />
+            type="com.example.skywise.presentation.ui.weatherscreen.WeatherViewModel" />
 
         <variable
             name="weatherData"
-            type="com.example.skywise.data.WeatherData" />
+            type="com.example.skywise.data.models.WeatherData" />
 
         <variable
             name="hourlyAdapter"
-            type="com.example.skywise.weatherscreen.HourlyAdapter" />
+            type="com.example.skywise.presentation.ui.weatherscreen.HourlyAdapter" />
 
         <variable
             name="dailyAdapter"
-            type="com.example.skywise.weatherscreen.DailyAdapter" />
+            type="com.example.skywise.presentation.ui.weatherscreen.DailyAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

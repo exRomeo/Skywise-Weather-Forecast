@@ -6,17 +6,17 @@
     <data>
 <variable
     name="adapter"
-    type="com.example.skywise.favoritelocations.FavoriteLocationsAdapter" />
+    type="com.example.skywise.presentation.ui.favoritelocations.FavoriteLocationsAdapter" />
         <variable
             name="viewModel"
-            type="com.example.skywise.favoritelocations.FavoriteLocationsViewModel" />
+            type="com.example.skywise.presentation.ui.favoritelocations.FavoriteLocationsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintlayout_favs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".favoritelocations.FavoriteLocationsFragment">
+        tools:context=".presentation.ui.favoritelocations.FavoriteLocationsFragment">
 
 
 

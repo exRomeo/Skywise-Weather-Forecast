@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/weatherFragment"
-        android:name="com.example.skywise.weatherscreen.WeatherFragment"
+        android:name="com.example.skywise.presentation.ui.weatherscreen.WeatherFragment"
         android:label="@string/weather"
         tools:layout="@layout/fragment_weather" />
     <fragment
         android:id="@+id/favoriteLocationsFragment"
-        android:name="com.example.skywise.favoritelocations.FavoriteLocationsFragment"
+        android:name="com.example.skywise.presentation.ui.favoritelocations.FavoriteLocationsFragment"
         android:label="@string/favorites"
         tools:layout="@layout/fragment_favorite_locations" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.skywise.settingsscreen.SettingsFragment"
+        android:name="com.example.skywise.presentation.ui.settingsscreen.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/alertsFragment"
-        android:name="com.example.skywise.alertscreen.AlertsFragment"
+        android:name="com.example.skywise.presentation.ui.alertscreen.AlertsFragment"
         android:label="@string/alerts"
         tools:layout="@layout/fragment_alerts" />
 </navigation>

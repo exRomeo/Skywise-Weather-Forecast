@@ -7,14 +7,14 @@
 
         <variable
             name="adapter"
-            type="com.example.skywise.alertscreen.AlertsAdapter" />
+            type="com.example.skywise.presentation.ui.alertscreen.AlertsAdapter" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".alertscreen.AlertsFragment">
+        tools:context=".presentation.ui.alertscreen.AlertsFragment">
 
         <TextView
             android:id="@+id/alerts_tv"

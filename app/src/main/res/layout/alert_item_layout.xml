@@ -7,7 +7,7 @@
 
         <variable
             name="weatherAlert"
-            type="com.example.skywise.alertscreen.WeatherAlert" />
+            type="com.example.skywise.data.models.WeatherAlert" />
     </data>
 
 

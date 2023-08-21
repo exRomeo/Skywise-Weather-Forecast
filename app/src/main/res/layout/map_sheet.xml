@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.example.skywise.mapsheet.MapSheetViewModel" />
+            type="com.example.skywise.presentation.ui.mapsheet.MapSheetViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".mapsheet.MapSheet">
+        tools:context=".presentation.mapsheet.MapSheet">
 
         <org.osmdroid.views.MapView
             android:id="@+id/mapView"

@@ -7,7 +7,7 @@
 
         <variable
             name="daily"
-            type="com.example.skywise.data.Daily" />
+            type="com.example.skywise.data.models.Daily" />
     </data>
 
     <androidx.cardview.widget.CardView
